@@ -1,8 +1,24 @@
-import { withPayload } from '@payloadcms/next/withPayload'
+import { withPayload } from '@payloadcms/next/withPayload';
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Your Next.js config here
-}
+  async redirects() {
+    return [{
+      source: "/",
+      destination: "/blog",
+      permanent: true,
+    }];
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: "http",
+        hostname: "localhost",
+        port: "8000",
+        pathname: "/media/**",
+      },
+    ],
+  }
+};
 
-export default withPayload(nextConfig)
+export default withPayload(nextConfig);

@@ -15,37 +15,35 @@
     "start": "cross-env NODE_OPTIONS=--no-deprecation next start"
   },
   "dependencies": {
-    "@payloadcms/next": "latest",
-    "@payloadcms/payload-cloud": "latest",
-    "@payloadcms/richtext-lexical": "latest",
+    "@payloadcms/db-sqlite": "^3.18.0",
+    "@payloadcms/next": "^3.18.0",
+    "@payloadcms/payload-cloud": "^3.18.0",
+    "@payloadcms/plugin-seo": "^3.18.0",
+    "@payloadcms/richtext-lexical": "^3.18.0",
     "cross-env": "^7.0.3",
+    "date-fns": "^4.1.0",
     "graphql": "^16.8.1",
-    "next": "15.0.0",
-    "payload": "latest",
-    "react": "19.0.0-rc-65a56d0e-20241020",
-    "react-dom": "19.0.0-rc-65a56d0e-20241020",
-    "sharp": "0.32.6",
-    "@payloadcms/db-sqlite": "latest"
+    "lucide-react": "^0.473.0",
+    "next": "^15.1.6",
+    "payload": "^3.18.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.33.5"
   },
   "devDependencies": {
-    "@types/node": "^22.5.4",
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/node": "^22.10.9",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "clsx": "^2.1.1",
     "eslint": "^8",
-    "eslint-config-next": "15.0.0",
-    "typescript": "5.7.2"
+    "eslint-config-next": "15.1.6",
+    "postcss": "^8.5.1",
+    "tailwind-merge": "^2.6.0",
+    "tailwindcss": "^3.4.17",
+    "typescript": "5.7.3"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0"
-  },
-  "pnpm": {
-    "overrides": {
-      "@types/react": "npm:types-react@19.0.0-rc.1",
-      "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
-    }
-  },
-  "overrides": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
