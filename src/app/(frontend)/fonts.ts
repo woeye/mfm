@@ -1,20 +1,20 @@
-import { Libre_Caslon_Text, Rubik } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google"
 
-const sansSerif = Rubik({
+const sansSerif = Inter({
   weight: "400",
   style: "normal",
   subsets: ["latin"],
   display: "swap",
   variable: "--font-sans-serif"
-});
+})
 
-const serif = Libre_Caslon_Text({
+const serif = Playfair_Display({
   weight: "700",
   style: "normal",
   subsets: ["latin"],
   display: "swap",
   variable: "--font-serif"
-});
+})
 
 // const nunito400 = Nunito({
 //   weight: "400",
@@ -35,4 +35,5 @@ const serif = Libre_Caslon_Text({
 export {
   serif,
   sansSerif
-};
+}
+

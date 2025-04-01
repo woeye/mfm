@@ -1,3 +1,18 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@layer base {
+  h1 {
+    font-size: var(--text-5xl);
+    font-family: var(--font-serif);
+  }
+
+  h2 {
+    font-size: var(--text-4xl);
+    font-family: var(--font-serif);
+  }
+
+  .img-wrapper {
+    height: 100%;
+  }
+}
+

@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload';
+import type { CollectionConfig } from 'payload'
 
 import {
   BlocksFeature,
@@ -7,7 +7,7 @@ import {
   HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
-} from '@payloadcms/richtext-lexical';
+} from '@payloadcms/richtext-lexical'
 
 import {
   MetaDescriptionField,
@@ -15,13 +15,13 @@ import {
   MetaTitleField,
   OverviewField,
   PreviewField,
-} from '@payloadcms/plugin-seo/fields';
+} from '@payloadcms/plugin-seo/fields'
 
-import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 
-import { slugField } from '@/fields/slug';
-import { generatePreviewPath } from '@/utilities/generatePreviewPath';
-import { getServerSideURL } from '@/utilities/getURL';
+import { slugField } from '@/fields/slug'
+import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { getServerSideURL } from '@/utilities/getURL'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -50,18 +50,18 @@ export const Posts: CollectionConfig<'posts'> = {
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : '',
           collection: 'posts',
-        });
+        })
 
-        return `${getServerSideURL()}${path}`;
+        return `${getServerSideURL()}${path}`
       },
     },
     preview: (data) => {
       const path = generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : '',
         collection: 'posts',
-      });
+      })
 
-      return `${getServerSideURL()}${path}`;
+      return `${getServerSideURL()}${path}`
     },
     useAsTitle: 'title',
   },
@@ -88,7 +88,7 @@ export const Posts: CollectionConfig<'posts'> = {
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),
-                  ];
+                  ]
                 },
               }),
               label: false,
@@ -110,7 +110,7 @@ export const Posts: CollectionConfig<'posts'> = {
                   id: {
                     not_in: [id],
                   },
-                };
+                }
               },
               hasMany: true,
               relationTo: 'posts',
@@ -169,9 +169,9 @@ export const Posts: CollectionConfig<'posts'> = {
         beforeChange: [
           ({ siblingData, value }) => {
             if (siblingData._status === 'published' && !value) {
-              return new Date();
+              return new Date()
             }
-            return value;
+            return value
           },
         ],
       },
@@ -223,4 +223,4 @@ export const Posts: CollectionConfig<'posts'> = {
     },
     maxPerDoc: 50,
   },
-};
+}

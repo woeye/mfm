@@ -1,13 +1,13 @@
-import { withPayload } from '@payloadcms/next/withPayload';
+import { withPayload } from '@payloadcms/next/withPayload'
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   async redirects() {
     return [{
       source: "/",
-      destination: "/blog",
+      destination: "/posts",
       permanent: true,
-    }];
+    }]
   },
   images: {
     remotePatterns: [
@@ -19,6 +19,6 @@ const nextConfig = {
       },
     ],
   }
-};
+}
 
-export default withPayload(nextConfig);
+export default withPayload(nextConfig)
