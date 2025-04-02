@@ -41,7 +41,7 @@ export default async function PostsPage() {
       <h1 className="text-center mb-16 col-span-6">my recent posts</h1>
 
       {/* treat first post special */}
-      <div className="col-span-6 grid grid-cols-6 gap-8 mb-16">
+      <article className="col-span-6 grid grid-cols-6 gap-8 mb-16">
         <div className="col-span-4 max-h-92">
           <ImageMedia height='h-80' media={firstPost.featuredPhoto as Media} />
         </div>
@@ -59,12 +59,12 @@ export default async function PostsPage() {
           </div>
           {/* <Content content={firstPost?.content}/> */}
         </div>
-      </div>
+      </article>
 
       {/* put remaining posts on a list of tiles */}
       {allPosts.map(post => {
         return (
-          <div key={post.id} className="col-span-3 grid grid-cols-6 gap-8">
+          <article key={post.id} className="col-span-3 grid grid-cols-6 gap-8">
             <div className="col-span-2 mt-8">
               <ImageMedia height='h-32' media={post.featuredPhoto as Media} />
             </div>
@@ -80,7 +80,7 @@ export default async function PostsPage() {
                 <p>{post.abstract}</p>
               </div>
             </div>
-          </div>
+          </article>
         )
       })}
     </div>
