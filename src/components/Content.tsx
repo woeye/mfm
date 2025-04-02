@@ -1,14 +1,14 @@
-import { Media, Post } from '@/payload-types'
+import { Post } from '@/payload-types'
 import { DefaultNodeTypes } from '@payloadcms/richtext-lexical'
 import { JSXConvertersFunction, RichText } from '@payloadcms/richtext-lexical/react'
-import { UploadBlock } from './blocks/uploadBlock'
+import { UploadBlock } from './blocks/UploadBlock'
 
 const jsxConverters: JSXConvertersFunction<DefaultNodeTypes> = ({
   defaultConverters
 }) => ({
   ...defaultConverters,
   upload:({ node }) => {
-    return <UploadBlock media={node.value as Media} />
+    return <UploadBlock upload={node} />
   },
 })
 

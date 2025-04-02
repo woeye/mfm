@@ -77,6 +77,17 @@ export const Posts: CollectionConfig<'posts'> = {
         {
           fields: [
             {
+              name: 'featuredPhoto',
+              type: 'upload',
+              required: true,
+              relationTo: 'media',
+            },
+            {
+              name: 'abstract',
+              type: 'text',
+              required: true,
+            },
+            {
               name: 'content',
               type: 'richText',
               editor: lexicalEditor({
@@ -97,36 +108,36 @@ export const Posts: CollectionConfig<'posts'> = {
           ],
           label: 'Content',
         },
-        {
-          fields: [
-            {
-              name: 'relatedPosts',
-              type: 'relationship',
-              admin: {
-                position: 'sidebar',
-              },
-              filterOptions: ({ id }) => {
-                return {
-                  id: {
-                    not_in: [id],
-                  },
-                }
-              },
-              hasMany: true,
-              relationTo: 'posts',
-            },
-            // {
-            //   name: 'categories',
-            //   type: 'relationship',
-            //   admin: {
-            //     position: 'sidebar',
-            //   },
-            //   hasMany: true,
-            //   relationTo: 'categories',
-            // },
-          ],
-          label: 'Meta',
-        },
+        // {
+        //   fields: [
+        //     {
+        //       name: 'relatedPosts',
+        //       type: 'relationship',
+        //       admin: {
+        //         position: 'sidebar',
+        //       },
+        //       filterOptions: ({ id }) => {
+        //         return {
+        //           id: {
+        //             not_in: [id],
+        //           },
+        //         }
+        //       },
+        //       hasMany: true,
+        //       relationTo: 'posts',
+        //     },
+        //     // {
+        //     //   name: 'categories',
+        //     //   type: 'relationship',
+        //     //   admin: {
+        //     //     position: 'sidebar',
+        //     //   },
+        //     //   hasMany: true,
+        //     //   relationTo: 'categories',
+        //     // },
+        //   ],
+        //   label: 'Meta',
+        // },
         {
           name: 'meta',
           label: 'SEO',
@@ -176,39 +187,39 @@ export const Posts: CollectionConfig<'posts'> = {
         ],
       },
     },
-    {
-      name: 'authors',
-      type: 'relationship',
-      admin: {
-        position: 'sidebar',
-      },
-      hasMany: true,
-      relationTo: 'users',
-    },
+    // {
+    //   name: 'authors',
+    //   type: 'relationship',
+    //   admin: {
+    //     position: 'sidebar',
+    //   },
+    //   hasMany: true,
+    //   relationTo: 'users',
+    // },
     // This field is only used to populate the user data via the `populateAuthors` hook
     // This is because the `user` collection has access control locked to protect user privacy
     // GraphQL will also not return mutated user data that differs from the underlying schema
-    {
-      name: 'populatedAuthors',
-      type: 'array',
-      access: {
-        update: () => false,
-      },
-      admin: {
-        disabled: true,
-        readOnly: true,
-      },
-      fields: [
-        {
-          name: 'id',
-          type: 'text',
-        },
-        {
-          name: 'name',
-          type: 'text',
-        },
-      ],
-    },
+    // {
+    //   name: 'populatedAuthors',
+    //   type: 'array',
+    //   access: {
+    //     update: () => false,
+    //   },
+    //   admin: {
+    //     disabled: true,
+    //     readOnly: true,
+    //   },
+    //   fields: [
+    //     {
+    //       name: 'id',
+    //       type: 'text',
+    //     },
+    //     {
+    //       name: 'name',
+    //       type: 'text',
+    //     },
+    //   ],
+    // },
     ...slugField(),
   ],
   hooks: {
