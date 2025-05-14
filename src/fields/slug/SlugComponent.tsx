@@ -3,7 +3,15 @@
 import React, { useCallback, useEffect } from 'react'
 import { TextFieldClientProps } from 'payload'
 
-import { useField, Button, TextInput, FieldLabel, useFormFields, useForm } from '@payloadcms/ui'
+import {
+  useField,
+  Button,
+  TextInput,
+  FieldLabel,
+  useFormFields,
+  useForm,
+  useDocumentInfo,
+} from '@payloadcms/ui'
 
 import { formatSlug } from './formatSlug'
 import './index.scss'
@@ -28,6 +36,9 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 
   const { value, setValue } = useField<string>({ path: path || field.name })
 
+  const doc = useDocumentInfo()
+  const isEditing = doc.isEditing
+
   const { dispatchFields } = useForm()
 
   // The value of the checkbox
@@ -42,6 +53,15 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
   })
 
   useEffect(() => {
+    // only auto-update the slug field when creating a new document. when editing a document
+    // the user should update the slug field manually and consciously.
+    // reason is that slugs will be used for URLs. And the URL might already be out in the public.
+    // changing the slug and thus the URL might lead to broken links.
+    if (isEditing) {
+      console.log('!!!!! editing mode detected. do not update slug automatically ...')
+      return
+    }
+
     if (checkboxValue) {
       if (targetFieldValue) {
         const formattedSlug = formatSlug(targetFieldValue)
@@ -51,10 +71,10 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
         if (value !== '') setValue('')
       }
     }
-  }, [targetFieldValue, checkboxValue, setValue, value])
+  }, [targetFieldValue, checkboxValue, setValue, value, isEditing])
 
   const handleLock = useCallback(
-    (e: any) => {
+    (e: React.MouseEvent<Element>) => {
       e.preventDefault()
 
       dispatchFields({

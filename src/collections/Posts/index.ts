@@ -4,7 +4,6 @@ import {
   BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
-  HorizontalRuleFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
@@ -22,6 +21,7 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { getServerSideURL } from '@/utilities/getURL'
+import { MediaBlock } from '@/components/blocks/MediaBlock/config'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -94,11 +94,10 @@ export const Posts: CollectionConfig<'posts'> = {
                 features: ({ rootFeatures }) => {
                   return [
                     ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    //BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+                    BlocksFeature({ blocks: [MediaBlock] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
                   ]
                 },
               }),

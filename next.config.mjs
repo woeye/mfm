@@ -18,6 +18,14 @@ const nextConfig = {
         pathname: "/media/**",
       },
     ],
+  },
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      }
+    }
   }
 }
 

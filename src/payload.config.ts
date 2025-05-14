@@ -1,13 +1,14 @@
 // storage-adapter-import-placeholder
 // import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import path from 'path'
+import sharp from 'sharp'
+import { fileURLToPath } from 'url'
+
+import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
-import path from 'path'
-import { buildConfig } from 'payload'
-import { fileURLToPath } from 'url'
-import sharp from 'sharp'
 
+import { defaultLexical } from '@/fields/defaultLexical'
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
@@ -23,7 +24,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts],
-  editor: lexicalEditor(),
+  editor: defaultLexical,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

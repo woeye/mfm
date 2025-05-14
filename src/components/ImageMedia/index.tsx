@@ -4,12 +4,12 @@ import Image from 'next/image'
 
 type Props = {
   media: Media
-  height?: 'h-64' | 'h-96' | 'h-40' | 'h-32' | 'h-24' | 'h-80'
+  className?: string
 }
-export const ImageMedia: React.FC<Props> = ({ media, height = 'h-64'}: Props) => {
+export const ImageMedia: React.FC<Props> = ({ media, className}: Props) => {
   console.log('rendering media: ', media)
   return (
-    <div className={cn('drop-shadow-md relative', height)}>
+    <div className={cn('drop-shadow-md relative', className)}>
       <Image
         src={media.url!}
         alt={media.alt}

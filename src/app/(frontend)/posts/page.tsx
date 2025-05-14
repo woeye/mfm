@@ -8,6 +8,7 @@ import Link from 'next/link'
 import Content from '@/components/Content'
 import { ImageMedia } from '@/components/ImageMedia'
 import { Media } from '@/payload-types'
+import { Divider } from '@/components/Divider'
 
 export default async function PostsPage() {
   const payload = await getPayload({ config: configPromise })
@@ -33,26 +34,30 @@ export default async function PostsPage() {
 
   const firstPost = allPosts.shift()!
 
-  allPosts.push(allPosts[0])
-  allPosts.push(allPosts[0])
+  //allPosts.push(allPosts[0])
+  //allPosts.push(allPosts[0])
 
   return (
-    <div className="grid grid-cols-6 gap-8 mb-16">
-      <h1 className="text-center mb-16 col-span-6">my recent posts</h1>
+    <div className="grid grid-cols-6 gap-10">
+      <h1 className="hidden">recent postings on musings from munich</h1>
 
       {/* treat first post special */}
-      <article className="col-span-6 grid grid-cols-6 gap-8 mb-16">
-        <div className="col-span-4 max-h-92">
-          <ImageMedia height='h-80' media={firstPost.featuredPhoto as Media} />
+      <article className="col-span-6 grid grid-cols-6 gap-8 mb-8">
+        <div className="col-span-3 max-h-92">
+          <ImageMedia className="h-64" media={firstPost.featuredPhoto as Media} />
         </div>
 
-        <div key={firstPost.id} className="col-span-2">
+        <div key={firstPost.id} className="col-span-3">
           <h2>
-            <Link className="hover:text-black" href={`/blog/${firstPost.slug}`}>{firstPost.title}</Link>
+            <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
+              {firstPost.title}
+            </Link>
           </h2>
           <div className="flex items-center center-items content-stretch">
             <LuClock className="text-mediumgray mr-1" size={16} />
-            <p className="font-nunito text text-sm text-mediumgray"><Date value={firstPost.publishedAt}/> ago</p>
+            <p className="font-nunito text text-sm text-mediumgray">
+              <Date value={firstPost.publishedAt} /> ago
+            </p>
           </div>
           <div className="mt-6">
             <p>{firstPost.abstract}</p>
@@ -61,21 +66,27 @@ export default async function PostsPage() {
         </div>
       </article>
 
+      <div className="col-span-6 mb-12">
+        <Divider icon='coffee' />
+      </div>
+
       {/* put remaining posts on a list of tiles */}
-      {allPosts.map(post => {
+      {allPosts.map((post) => {
         return (
-          <article key={post.id} className="col-span-3 grid grid-cols-6 gap-8">
-            <div className="col-span-2 mt-8">
-              <ImageMedia height='h-32' media={post.featuredPhoto as Media} />
-            </div>
-            <div className="col-span-4 pr-10 mt-8">
-              <h3>
-                <Link className="hover:text-black" href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h3>
-              <div className="flex items-center center-items content-stretch">
+          <article key={post.id} className="col-span-2">
+            <div className="">
+              <h2>
+                <Link className="hover:text-black" href={`/posts/${post.slug}`}>
+                  {post.title}
+                </Link>
+              </h2>
+              <div className="flex items-center center-items content-stretch mt-1">
                 <LuClock className="text-mediumgray mr-1" size={16} />
-                <p className="font-nunito text text-sm text-mediumgray"><Date value={post.publishedAt}/> ago</p>
+                <p className="font-nunito text text-sm text-mediumgray">
+                  <Date value={post.publishedAt} /> ago
+                </p>
               </div>
+              <ImageMedia className="h-40 mt-4" media={post.featuredPhoto as Media} />
               <div className="mt-2">
                 <p>{post.abstract}</p>
               </div>
