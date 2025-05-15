@@ -28,9 +28,9 @@ export const Media: CollectionConfig = {
         width: 300,
       },
       {
-        name: 'square',
-        width: 500,
-        height: 500,
+        name: 'wide',
+        width: 496,
+        height: 288,
       },
       {
         name: 'small',

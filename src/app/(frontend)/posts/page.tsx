@@ -44,7 +44,10 @@ export default async function PostsPage() {
       {/* treat first post special */}
       <article className="col-span-6 grid grid-cols-6 gap-8 mb-8">
         <div className="col-span-3 max-h-92">
-          <ImageMedia className="h-64" media={firstPost.featuredPhoto as Media} />
+          <ImageMedia
+            size='wide'
+            className="h-72"
+            media={firstPost.featuredPhoto as Media} />
         </div>
 
         <div key={firstPost.id} className="col-span-3">
@@ -66,7 +69,7 @@ export default async function PostsPage() {
         </div>
       </article>
 
-      <div className="col-span-6 mb-12">
+      <div className="col-span-6">
         <Divider icon='coffee' />
       </div>
 
