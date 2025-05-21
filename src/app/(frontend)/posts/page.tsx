@@ -1,14 +1,13 @@
 import { getPayload } from 'payload'
-import { LuClock } from 'react-icons/lu'
 import configPromise from '@payload-config'
 // import { RichText } from '@payloadcms/richtext-lexical/react'
-import Date from '@/components/Date'
 // import Heading from '@/components/Heading'
 import Link from 'next/link'
 import Content from '@/components/Content'
 import { ImageMedia } from '@/components/ImageMedia'
 import { Media } from '@/payload-types'
 import { Divider } from '@/components/Divider'
+import { PublishedAt } from '@/components/PublishedAt'
 
 export default async function PostsPage() {
   const payload = await getPayload({ config: configPromise })
@@ -38,7 +37,7 @@ export default async function PostsPage() {
   //allPosts.push(allPosts[0])
 
   return (
-    <div className="grid grid-cols-6 gap-10">
+    <div className="grid grid-cols-6 gap-10 mb-10">
       <h1 className="hidden">recent postings on musings from munich</h1>
 
       {/* treat first post special */}
@@ -56,12 +55,7 @@ export default async function PostsPage() {
               {firstPost.title}
             </Link>
           </h2>
-          <div className="flex items-center center-items content-stretch">
-            <LuClock className="text-mediumgray mr-1" size={16} />
-            <p className="font-nunito text text-sm text-mediumgray">
-              <Date value={firstPost.publishedAt} /> ago
-            </p>
-          </div>
+          <PublishedAt post={firstPost} />
           <div className="mt-6">
             <p>{firstPost.abstract}</p>
           </div>
@@ -83,14 +77,9 @@ export default async function PostsPage() {
                   {post.title}
                 </Link>
               </h2>
-              <div className="flex items-center center-items content-stretch mt-1">
-                <LuClock className="text-mediumgray mr-1" size={16} />
-                <p className="font-nunito text text-sm text-mediumgray">
-                  <Date value={post.publishedAt} /> ago
-                </p>
-              </div>
-              <ImageMedia className="h-40 mt-4" media={post.featuredPhoto as Media} />
-              <div className="mt-2">
+              <PublishedAt post={firstPost} />
+              <ImageMedia size='wide' className="h-40 mt-4" media={post.featuredPhoto as Media} />
+              <div className="mt-4">
                 <p>{post.abstract}</p>
               </div>
             </div>

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { cn } from '@/utilities/cn'
 import { serif, sansSerif } from './fonts'
 import { TopNavi } from '@/components/TopNavi'
+import { Footer } from '@/components/Footer'
 
 import './app.css'
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <main>
           {children}
         </main>
+        <Footer />
       </body>
     </html>
   )

@@ -7,5 +7,5 @@ type Props = {
 }
 export const MediaBlock: React.FC<Props> = ({ upload }) => {
   const media = upload.value as Media
-  return <ImageMedia media={media} />
+  return <ImageMedia size='original' media={media} />
 }

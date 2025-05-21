@@ -7,14 +7,20 @@ const icons = {
 }
 
 type Props = {
-  icon: 'coffee' | 'camera'
+  icon: 'coffee' | 'camera' | 'none'
 }
 export const Divider: React.FC<Props> = ({ icon }) => {
-  const SvgIcon = icons[icon]
+
+  let SvgIcon = null
+  if (icon != 'none') {
+    SvgIcon = icons[icon]
+  }
   return (
     <div className="flex flex-row items-center">
       <hr className="w-full text-gray-400 border-t-2"/>
-      <SvgIcon className="w-12 mx-4 text-gray-500"/>
+      {SvgIcon != null && (
+        <SvgIcon className="w-12 mx-4 text-gray-500"/>
+      )}
       <hr className="w-full text-gray-400 border-t-2"/>
     </div>
   )
