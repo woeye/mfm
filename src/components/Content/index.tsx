@@ -1,11 +1,13 @@
 import { Post } from '@/payload-types'
 import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
 import { JSXConvertersFunction, RichText } from '@payloadcms/richtext-lexical/react'
-import { MediaBlock } from './blocks/MediaBlock/Component'
+import { MediaBlock } from './../blocks/MediaBlock/Component'
 import type {
   Media,
   MediaBlock as MediaBlockProps,
 } from '@/payload-types'
+
+//import './style.scss'
 
 type NodeTypes =
   | DefaultNodeTypes

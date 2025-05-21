@@ -31,3 +31,18 @@
     color: var(--color-gray-600);
   }
 }
+
+/*
+  custom styling for the rendered RichText output.
+  it's easier this way because otherwise we would have to
+  override (and reimplement) most of the RichText converters (like p, blockquote, ... etc).
+
+  see:
+  - https://tailwindcss.com/docs/styling-with-utility-classes#using-custom-css
+  - https://github.com/payloadcms/payload/blob/main/packages/richtext-lexical/src/features/converters/lexicalToJSX/converter/defaultConverters.ts
+*/
+@layer components {
+  .article-content {
+    h2 { margin-bottom: --spacing(0.5) }
+  }
+}
