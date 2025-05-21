@@ -3,9 +3,8 @@ import { SerializedUploadNode } from '@payloadcms/richtext-lexical'
 import { ImageMedia } from '@/components/ImageMedia'
 
 type Props = {
-  upload: SerializedUploadNode
+  media: Media
 }
-export const MediaBlock: React.FC<Props> = ({ upload }) => {
-  const media = upload.value as Media
+export const MediaBlock: React.FC<Props> = ({ media }) => {
   return <ImageMedia size='original' media={media} />
 }

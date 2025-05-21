@@ -4,6 +4,7 @@ import configPromise from '@payload-config'
 import { Media } from '@/payload-types'
 import { PublishedAt } from '@/components/PublishedAt'
 import { ImageMedia } from '@/components/ImageMedia'
+import { Content } from '@/components/Content'
 
 type Args = {
   params: Promise<{
@@ -49,13 +50,11 @@ export default async function PostPage({ params: paramsPromise }: Args) {
           </h1>
           <PublishedAt post={post} />
           <ImageMedia
-            size='original'
+            size="original"
+            className="mt-6"
             media={post.featuredPhoto as Media}
           />
-          <div className="mt-6">
-            <p>{post.abstract}</p>
-          </div>
-          {/* <Content content={firstPost?.content}/> */}
+          <Content className="mt-10 article-content" content={post?.content}/>
         </div>
       </article>
   </div>

@@ -1,20 +1,36 @@
 import { Post } from '@/payload-types'
-import { DefaultNodeTypes } from '@payloadcms/richtext-lexical'
+import { DefaultNodeTypes, SerializedBlockNode } from '@payloadcms/richtext-lexical'
 import { JSXConvertersFunction, RichText } from '@payloadcms/richtext-lexical/react'
-import { UploadBlock } from './blocks/UploadBlock'
+import { MediaBlock } from './blocks/MediaBlock/Component'
+import type {
+  Media,
+  MediaBlock as MediaBlockProps,
+} from '@/payload-types'
 
-const jsxConverters: JSXConvertersFunction<DefaultNodeTypes> = ({
+type NodeTypes =
+  | DefaultNodeTypes
+  | SerializedBlockNode<MediaBlockProps>
+
+const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
   defaultConverters
 }) => ({
   ...defaultConverters,
-  upload:({ node }) => {
-    return <UploadBlock upload={node} />
-  },
+  blocks: {
+    mediaBlock: ({ node }) => {
+      const media = node.fields.media as Media
+      return <MediaBlock media={media} />
+    },
+  }
 })
 
-type ContentParams = {
+type Props = {
   content: Post['content']
+  className?: string
 }
-export default function Content({ content }: ContentParams) {
-  return <RichText data={content} converters={jsxConverters} />
+export const Content: React.FC<Props> = ({ content, className }: Props) => {
+  return <RichText
+    className={className}
+    data={content}
+    converters={jsxConverters}
+  />
 }
