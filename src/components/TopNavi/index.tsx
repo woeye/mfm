@@ -7,7 +7,7 @@ export const TopNavi = () => {
     <header className="mt-4">
       <nav className="grid grid-cols-6 gap-4">
         <div className="col-span-3 flex flex-row gap-6 justify-start">
-          <Link className="font-serif text-base text-gray-600" href="/pages/about">
+          <Link className="font-serif text-base text-gray-600" href="/about">
             about
           </Link>
           <Link className="font-serif text-base text-gray-600" href="/posts">
@@ -15,10 +15,10 @@ export const TopNavi = () => {
           </Link>
         </div>
         <div className="col-span-3 flex flex-row gap-6 justify-end">
-          <Link className="font-serif text-base text-gray-600" href="/pages/contact">
+          <Link className="font-serif text-base text-gray-600" href="/contact">
             contact
           </Link>
-          <Link className="font-serif text-base text-gray-600" href="/pages/imprint">
+          <Link className="font-serif text-base text-gray-600" href="/imprint">
             imprint
           </Link>
         </div>

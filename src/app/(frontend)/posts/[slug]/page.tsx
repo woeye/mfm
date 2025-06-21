@@ -40,23 +40,21 @@ export default async function PostPage({ params: paramsPromise }: Args) {
   const post = result.docs[0]
 
   return (
-  <div>
-      <article className="col-span-6 grid grid-cols-6 gap-8 mb-8">
-        <div className="col-span-4 col-start-2">
-          <h1>
-            <Link className="hover:text-black" href={`/posts/${post.slug}`}>
-              {post.title}
-            </Link>
-          </h1>
-          <PublishedAt post={post} />
-          <ImageMedia
-            size="original"
-            className="mt-6"
-            media={post.featuredPhoto as Media}
-          />
-          <Content className="mt-10 article-content" content={post?.content}/>
-        </div>
-      </article>
-  </div>
+    <article className="col-span-6 grid grid-cols-6 gap-8 mb-8">
+      <div className="col-span-4 col-start-2">
+        <h1>
+          <Link className="hover:text-black" href={`/posts/${post.slug}`}>
+            {post.title}
+          </Link>
+        </h1>
+        <PublishedAt post={post} />
+        <ImageMedia
+          size="original"
+          className="mt-6"
+          media={post.featuredPhoto as Media}
+        />
+        <Content className="mt-10 article-content" content={post?.content}/>
+      </div>
+    </article>
   )
 }
