@@ -7,33 +7,17 @@ import { ImageMedia } from '@/components/ImageMedia'
 import { Media } from '@/payload-types'
 import { Divider } from '@/components/Divider'
 import { PublishedAt } from '@/components/PublishedAt'
+import { cache } from 'react'
 
 export default async function PostsPage() {
-  const payload = await getPayload({ config: configPromise })
-
-  const posts = await payload.find({
-    collection: 'posts',
-    depth: 2,
-    limit: 10,
-    overrideAccess: false,
-    // select: {
-    //   title: true,
-    //   slug: true,
-    //   categories: true,
-    //   meta: true,
-    // },
-  })
-
+  //const payload = await getPayload({ config: configPromise })
+  const posts = await fetchRecentPosts()
   console.log('posts: ', posts)
 
+  if (posts.length == 0) return // TODO we might to handle this better
+
   // first post goes on top
-  const allPosts = posts.docs
-  if (allPosts.length == 0) return // TODO we might to handle this better
-
-  const firstPost = allPosts.shift()!
-
-  //allPosts.push(allPosts[0])
-  //allPosts.push(allPosts[0])
+  const firstPost = posts.shift()!
 
   return (
     <div className="grid grid-cols-6 gap-10 mb-10">
@@ -49,12 +33,12 @@ export default async function PostsPage() {
         </div>
 
         <div key={firstPost.id} className="col-span-3">
+          <PublishedAt post={firstPost} />
           <h2>
             <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
               {firstPost.title}
             </Link>
           </h2>
-          <PublishedAt post={firstPost} />
           <div className="mt-6">
             <p>{firstPost.abstract}</p>
           </div>
@@ -67,16 +51,17 @@ export default async function PostsPage() {
       </div>
 
       {/* put remaining posts on a list of tiles */}
-      {allPosts.map((post) => {
+      {posts.map((post) => {
+        console.log(post.slug)
         return (
           <article key={post.id} className="col-span-2">
             <div className="">
+              <PublishedAt post={firstPost} />
               <h2>
                 <Link className="hover:text-black" href={`/posts/${post.slug}`}>
                   {post.title}
                 </Link>
               </h2>
-              <PublishedAt post={firstPost} />
               <ImageMedia size='wide' className="h-40 mt-4" media={post.featuredPhoto as Media} />
               <div className="mt-4">
                 <p>{post.abstract}</p>
@@ -88,3 +73,26 @@ export default async function PostsPage() {
     </div>
   )
 }
+
+
+const fetchRecentPosts = cache(async function() {
+  console.log('fetching recent posts ...')
+  const payload = await getPayload({ config: configPromise })
+  const posts = await payload.find({
+    collection: 'posts',
+    depth: 2,
+    limit: 10,
+    overrideAccess: false,
+    // select: {
+    //   title: true,
+    //   slug: true,
+    //   categories: true,
+    //   meta: true,
+    // },
+  })
+
+
+  // first post goes on top
+  return posts.docs
+})
+

@@ -5,27 +5,94 @@ import { Media } from '@/payload-types'
 import { PublishedAt } from '@/components/PublishedAt'
 import { ImageMedia } from '@/components/ImageMedia'
 import { Content } from '@/components/Content'
+import { cache } from 'react'
+import { draftMode } from 'next/headers'
+import { notFound } from 'next/navigation'
+
+import './divider.css'
 
 type Args = {
   params: Promise<{
-    slug?: string,
+    slug: string,
   }>
 }
 export default async function PostPage({ params: paramsPromise }: Args) {
   const { slug } = await paramsPromise
+  const post = await queryPostBySlug({ slug })
+  const recentPosts = await fetchRecentPosts()
+
+  return (
+    <div className="col-span-6 grid grid-cols-6 gap-10 mb-8">
+      <article className="col-span-4">
+        <PublishedAt post={post} />
+        <h1>
+          <Link className="hover:text-black" href={`/posts/${post.slug}`}>
+            {post.title}
+          </Link>
+        </h1>
+        <ImageMedia
+          size="original"
+          className="mt-6"
+          media={post.featuredPhoto as Media}
+        />
+        <Content className="mt-10 article-content" content={post?.content}/>
+      </article>
+      <aside className="col-span-2 pt-4">
+        <h2>recent posts</h2>
+        {recentPosts.map((rp) => {
+          // if (rp.id == post.id) return -> might cause confusion
+          return (
+            <article key={rp.id} className="grid grid-cols-6 gap-2 mt-8">
+              <ImageMedia size='wide' className="col-span-2 h-16" media={rp.featuredPhoto as Media} />
+              <div className="col-span-4">
+                <PublishedAt post={rp} format='compact' />
+                <h2 className="text-sm font-normal">
+                  <Link className="hover:text-black" href={`/posts/${rp.slug}`}>
+                    {rp.title}
+                  </Link>
+                </h2>
+              </div>
+              {/* <div className="mt-4">
+                <p>{post.abstract}</p>
+              </div> */}
+            </article>
+          )
+        })}
+      </aside>
+      <div className=""></div>
+    </div>
+  )
+}
+
+const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
+  console.log(`fetching post by slug: ${slug}`)
+  const { isEnabled: draft } = await draftMode()
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({
     collection: 'posts',
-    depth: 2,
-    draft: false,
+    draft,
     limit: 1,
     pagination: false,
-    overrideAccess: false,
+    overrideAccess: draft,
     where: {
       slug: {
         equals: slug,
-      }
-    }
+      },
+    },
+  })
+
+  return result.docs?.[0] || null
+})
+
+
+const fetchRecentPosts = cache(async function() {
+  console.log('fetching recent posts ...')
+  const payload = await getPayload({ config: configPromise })
+  const posts = await payload.find({
+    collection: 'posts',
+    depth: 2,
+    limit: 10,
+    overrideAccess: false,
     // select: {
     //   title: true,
     //   slug: true,
@@ -33,28 +100,5 @@ export default async function PostPage({ params: paramsPromise }: Args) {
     //   meta: true,
     // },
   })
-
-  console.log(result.docs)
-
-  //if (result.docs)
-  const post = result.docs[0]
-
-  return (
-    <article className="col-span-6 grid grid-cols-6 gap-8 mb-8">
-      <div className="col-span-4 col-start-2">
-        <h1>
-          <Link className="hover:text-black" href={`/posts/${post.slug}`}>
-            {post.title}
-          </Link>
-        </h1>
-        <PublishedAt post={post} />
-        <ImageMedia
-          size="original"
-          className="mt-6"
-          media={post.featuredPhoto as Media}
-        />
-        <Content className="mt-10 article-content" content={post?.content}/>
-      </div>
-    </article>
-  )
-}
+  return posts.docs
+})

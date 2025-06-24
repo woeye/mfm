@@ -1,0 +1,4 @@
+.divider {
+  background: linear-gradient(var(--color-gray-300), var(--color-gray-300)) center/2px 100% no-repeat;
+  background-position:67.5% 0;
+}
