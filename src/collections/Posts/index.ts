@@ -19,9 +19,10 @@ import {
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 
 import { slugField } from '@/fields/slug'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { generatePreviewPathByID } from '@/utilities/generatePreviewPath'
 import { getServerSideURL } from '@/utilities/getURL'
 import { MediaBlock } from '@/components/blocks/MediaBlock/config'
+import { revalidatePost } from './hooks/revalidatePost'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -46,22 +47,25 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data }) => {
-        const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : '',
+      url: ({ data, req }) => {
+        //console.log(`!!!!!!!!!!!!! livePreview slug: ${data.slug}`)
+        const path = generatePreviewPathByID({
+          id: data.id as string,
           collection: 'posts',
+          req,
         })
 
-        return `${getServerSideURL()}${path}`
+        return path
       },
     },
-    preview: (data) => {
-      const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+    preview: (data, { req }) => {
+      const path = generatePreviewPathByID({
+        id: data.id as string,
         collection: 'posts',
+        req,
       })
 
-      return `${getServerSideURL()}${path}`
+      return path
     },
     useAsTitle: 'title',
   },
@@ -222,7 +226,7 @@ export const Posts: CollectionConfig<'posts'> = {
     ...slugField(),
   ],
   hooks: {
-    //afterChange: [revalidatePost],
+    afterChange: [revalidatePost],
     //afterRead: [populateAuthors],
   },
   versions: {
@@ -230,6 +234,7 @@ export const Posts: CollectionConfig<'posts'> = {
       autosave: {
         interval: 100, // We set this interval for optimal live preview
       },
+      schedulePublish: true,
     },
     maxPerDoc: 50,
   },

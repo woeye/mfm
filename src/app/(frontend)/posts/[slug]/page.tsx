@@ -1,15 +1,17 @@
 import Link from 'next/link'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import { Media } from '@/payload-types'
+import { Media, Post } from '@/payload-types'
 import { PublishedAt } from '@/components/PublishedAt'
 import { ImageMedia } from '@/components/ImageMedia'
 import { Content } from '@/components/Content'
 import { cache } from 'react'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
+import { fetchRecentPosts } from '@/utilities/posts'
+import { LivePreviewListener } from '@/components/LivePreviewListener'
 
-import './divider.css'
+//import './divider.css'
 
 type Args = {
   params: Promise<{
@@ -18,18 +20,24 @@ type Args = {
 }
 export default async function PostPage({ params: paramsPromise }: Args) {
   const { slug } = await paramsPromise
+  const url = '/posts/' + slug
+
   const post = await queryPostBySlug({ slug })
+  if (!post) return <div>not found</div>
+
+  return <PostDetails post={post} />
+}
+
+export const PostDetails = async ({ post }: { post: Post }) => {
+  const { isEnabled: draft } = await draftMode()
   const recentPosts = await fetchRecentPosts()
 
   return (
     <div className="col-span-6 grid grid-cols-6 gap-10 mb-8">
+      {draft && <LivePreviewListener/>}
       <article className="col-span-4">
         <PublishedAt post={post} />
-        <h1>
-          <Link className="hover:text-black" href={`/posts/${post.slug}`}>
-            {post.title}
-          </Link>
-        </h1>
+        <h1>{post.title}</h1>
         <ImageMedia
           size="original"
           className="mt-6"
@@ -72,8 +80,8 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
     collection: 'posts',
     draft,
     limit: 1,
-    pagination: false,
     overrideAccess: draft,
+    pagination: false,
     where: {
       slug: {
         equals: slug,
@@ -82,23 +90,4 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   })
 
   return result.docs?.[0] || null
-})
-
-
-const fetchRecentPosts = cache(async function() {
-  console.log('fetching recent posts ...')
-  const payload = await getPayload({ config: configPromise })
-  const posts = await payload.find({
-    collection: 'posts',
-    depth: 2,
-    limit: 10,
-    overrideAccess: false,
-    // select: {
-    //   title: true,
-    //   slug: true,
-    //   categories: true,
-    //   meta: true,
-    // },
-  })
-  return posts.docs
 })

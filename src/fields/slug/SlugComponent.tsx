@@ -10,7 +10,7 @@ import {
   FieldLabel,
   useFormFields,
   useForm,
-  useDocumentInfo,
+  //useDocumentInfo,
 } from '@payloadcms/ui'
 
 import { formatSlug } from './formatSlug'
@@ -36,8 +36,8 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
 
   const { value, setValue } = useField<string>({ path: path || field.name })
 
-  const doc = useDocumentInfo()
-  const isEditing = doc.isEditing
+  //const doc = useDocumentInfo()
+  //const isEditing = doc.isEditing
 
   const { dispatchFields } = useForm()
 
@@ -57,10 +57,10 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
     // the user should update the slug field manually and consciously.
     // reason is that slugs will be used for URLs. And the URL might already be out in the public.
     // changing the slug and thus the URL might lead to broken links.
-    if (isEditing) {
-      console.log('!!!!! editing mode detected. do not update slug automatically ...')
-      return
-    }
+    // if (isEditing) {
+    //   console.log('!!!!! editing mode detected. do not update slug automatically ...')
+    //   return
+    // }
 
     if (checkboxValue) {
       if (targetFieldValue) {
@@ -71,7 +71,7 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
         if (value !== '') setValue('')
       }
     }
-  }, [targetFieldValue, checkboxValue, setValue, value, isEditing])
+  }, [targetFieldValue, checkboxValue, setValue, value])
 
   const handleLock = useCallback(
     (e: React.MouseEvent<Element>) => {
@@ -92,7 +92,6 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
     <div className="field-type slug-field-component">
       <div className="label-wrapper">
         <FieldLabel htmlFor={`field-${path}`} label={label} />
-
         <Button className="lock-button" buttonStyle="none" onClick={handleLock}>
           {checkboxValue ? 'Unlock' : 'Lock'}
         </Button>

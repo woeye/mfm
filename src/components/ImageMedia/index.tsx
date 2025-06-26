@@ -10,7 +10,8 @@ type Props = {
   size: SizesKeys | 'original'
 }
 export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: Props) => {
-  console.log('rendering media: ', media)
+  //
+  // console.log('rendering media: ', media)
 
   let opts: ImageProps = {
     alt: media.alt,

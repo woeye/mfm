@@ -8,6 +8,12 @@ import { Media } from '@/payload-types'
 import { Divider } from '@/components/Divider'
 import { PublishedAt } from '@/components/PublishedAt'
 import { cache } from 'react'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'recent posts',
+  description: 'Random musings from munich',
+}
 
 export default async function PostsPage() {
   //const payload = await getPayload({ config: configPromise })
