@@ -1,6 +1,6 @@
-import { Inter, Playfair_Display } from 'next/font/google'
+import { Noto_Sans, Noto_Serif } from 'next/font/google'
 
-const sansSerif = Inter({
+const sansSerif = Noto_Sans({
   weight: '400',
   style: 'normal',
   subsets: ['latin'],
@@ -8,7 +8,7 @@ const sansSerif = Inter({
   variable: '--font-sans-serif'
 })
 
-const serif = Playfair_Display({
+const serif = Noto_Serif({
   weight: '700',
   style: 'normal',
   subsets: ['latin'],

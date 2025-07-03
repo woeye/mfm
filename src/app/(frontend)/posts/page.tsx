@@ -26,25 +26,25 @@ export default async function PostsPage() {
   const firstPost = posts.shift()!
 
   return (
-    <div className="grid grid-cols-6 gap-10 mb-10">
+    <div className="grid grid-cols-7 gap-6">
       <h1 className="hidden">recent postings on musings from munich</h1>
 
       {/* treat first post special */}
-      <article className="col-span-6 grid grid-cols-6 gap-8 mb-8">
-        <div className="col-span-3 max-h-92">
+      <article className="col-span-6 col-start-2 gap-6 mt-16 mb-8">
+        <PublishedAt post={firstPost} />
+        <h2>
+          <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
+            {firstPost.title}
+          </Link>
+        </h2>
+        <div className="col-span-3 mt-4">
           <ImageMedia
             size='wide'
-            className="h-72"
+            className="h-96"
             media={firstPost.featuredPhoto as Media} />
         </div>
 
         <div key={firstPost.id} className="col-span-3">
-          <PublishedAt post={firstPost} />
-          <h2>
-            <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
-              {firstPost.title}
-            </Link>
-          </h2>
           <div className="mt-6">
             <p>{firstPost.abstract}</p>
           </div>
@@ -52,15 +52,17 @@ export default async function PostsPage() {
         </div>
       </article>
 
-      <div className="col-span-6">
+      <div className="col-span-6 col-start-2">
         <Divider icon='coffee' />
       </div>
+
+      <div className="col-span-6 col-start-2 grid grid-cols-3 gap-6 mt-8">
 
       {/* put remaining posts on a list of tiles */}
       {posts.map((post) => {
         console.log(post.slug)
         return (
-          <article key={post.id} className="col-span-2">
+          <article key={post.id} className="col-span-1">
             <div className="">
               <PublishedAt post={firstPost} />
               <h2>
@@ -76,6 +78,7 @@ export default async function PostsPage() {
           </article>
         )
       })}
+      </div>
     </div>
   )
 }
