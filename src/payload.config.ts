@@ -6,7 +6,8 @@ import { fileURLToPath } from 'url'
 
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
+import { postgresAdapter } from '@payloadcms/db-postgres'
+//import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 
 import { defaultLexical } from '@/fields/defaultLexical'
 import { Users } from './collections/Users'
@@ -55,9 +56,17 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI!,
   }),
+  // db: postgresAdapter({
+  //   // Postgres-specific arguments go here.
+  //   // `pool` is required.
+  //   pool: {
+  //     connectionString: process.env.DATABASE_URI,
+  //   },
+  //   push: false, // disable automatic migrations
+  // }),
   sharp,
   plugins: [
-    payloadCloudPlugin(),
+    //payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
 })
