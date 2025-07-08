@@ -19,24 +19,23 @@ export async function GET(
 
   const { searchParams } = new URL(req.url)
 
-  //const path = searchParams.get('path')
+  const path = searchParams.get('path')
   const collection = searchParams.get('collection') as CollectionSlug
-  const id = searchParams.get('id')
+  const slug = searchParams.get('slug')
   const previewSecret = searchParams.get('previewSecret')
 
   if (previewSecret !== process.env.PREVIEW_SECRET) {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 
-  if (!collection || !id) {
+  if (!path || !collection || !slug) {
     return new Response('Insufficient search params', { status: 404 })
   }
 
-  // if (!path.startsWith('/')) {
-  //   return new Response('This endpoint can only be used for relative previews', { status: 500 })
-  // }
+  if (!path.startsWith('/')) {
+    return new Response('This endpoint can only be used for relative previews', { status: 500 })
+  }
 
-  console.log(`got request for preview a collection entity -> id: ${id} -- collection: ${collection}`)
 
   let user
 
@@ -60,10 +59,6 @@ export async function GET(
   // You can add additional checks here to see if the user is allowed to preview this page
 
   draft.enable()
-
-  // now is the right time to compute the proper path
-  const path = `/posts/preview/${id}`
-  console.log(`redirecting to path: ${path}`)
 
   redirect(path)
 }

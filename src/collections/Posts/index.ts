@@ -19,10 +19,13 @@ import {
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 
 import { slugField } from '@/fields/slug'
-import { generatePreviewPathByID } from '@/utilities/generatePreviewPath'
-import { getServerSideURL } from '@/utilities/getURL'
+import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { MediaBlock } from '@/components/blocks/MediaBlock/config'
 import { revalidatePost } from './hooks/revalidatePost'
+
+const slugFrom = (data: Record<string, any>) => {
+  return typeof data?.slug === 'string' ? data.slug : ''
+}
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -47,24 +50,23 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: ({ data, req }) => {
-        //console.log(`!!!!!!!!!!!!! livePreview slug: ${data.slug}`)
-        const path = generatePreviewPathByID({
-          id: data.id as string,
+     url: ({ data, req }) => {
+        console.info(`!!!!!!!!!!!!! livePreview slug: ${data.slug}`)
+        const path = generatePreviewPath({
+          slug: slugFrom(data),
           collection: 'posts',
           req,
         })
-
+        console.info(`livePreview path: ${path}`)
         return path
       },
     },
     preview: (data, { req }) => {
-      const path = generatePreviewPathByID({
-        id: data.id as string,
+      const path = generatePreviewPath({
+        slug: slugFrom(data),
         collection: 'posts',
         req,
       })
-
       return path
     },
     useAsTitle: 'title',

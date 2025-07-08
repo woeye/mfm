@@ -30,24 +30,23 @@ export default async function PostsPage() {
       <h1 className="hidden">recent postings on musings from munich</h1>
 
       {/* treat first post special */}
-      <article className="col-span-6 col-start-2 gap-6 mt-16 mb-8">
-        <PublishedAt post={firstPost} />
-        <h2>
-          <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
-            {firstPost.title}
-          </Link>
-        </h2>
-        <div className="col-span-3 mt-4">
+      <article className="col-span-6 col-start-2 gap-6 mt-16 mb-8 grid grid-cols-3">
+        <div className="col-span-3">
+          <PublishedAt post={firstPost} />
+          <h2>
+            <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
+              {firstPost.title}
+            </Link>
+          </h2>
+        </div>
+        <div className="col-span-2">
           <ImageMedia
             size='wide'
             className="h-96"
             media={firstPost.featuredPhoto as Media} />
         </div>
-
-        <div key={firstPost.id} className="col-span-3">
-          <div className="mt-6">
-            <p>{firstPost.abstract}</p>
-          </div>
+        <div key={firstPost.id} className="col-span-1 mt-1">
+          <p>{firstPost.abstract}</p>
           {/* <Content content={firstPost?.content}/> */}
         </div>
       </article>

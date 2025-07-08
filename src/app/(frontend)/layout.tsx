@@ -20,7 +20,7 @@ type RootLayoutProps = {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en">
-      <body className={cn(serif.variable, sansSerif.variable, 'container mx-auto')} suppressHydrationWarning>
+      <body className={cn(serif.variable, sansSerif.variable, 'container max-w-5xl mx-auto')} suppressHydrationWarning>
         <TopNavi />
         <main>
           {children}

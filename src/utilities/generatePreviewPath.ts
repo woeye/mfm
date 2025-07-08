@@ -11,11 +11,11 @@ type Props = {
   req: PayloadRequest
 }
 
-type PropsWithID = {
-  collection: keyof typeof collectionPrefixMap
-  id: string
-  req: PayloadRequest
-}
+// type PropsWithID = {
+//   collection: keyof typeof collectionPrefixMap
+//   id: string
+//   req: PayloadRequest
+// }
 
 export const generatePreviewPath = ({ collection, slug }: Props) => {
   const encodedParams = new URLSearchParams({
@@ -26,18 +26,19 @@ export const generatePreviewPath = ({ collection, slug }: Props) => {
   })
 
   const url = `/next/preview?${encodedParams.toString()}`
+  console.info('generatePreviewPath -> url: ', url)
 
   return url
 }
 
-export const generatePreviewPathByID = ({ collection, id }: PropsWithID) => {
-  const encodedParams = new URLSearchParams({
-    id,
-    collection,
-    previewSecret: process.env.PREVIEW_SECRET || '',
-  })
+// export const generatePreviewPathByID = ({ collection, id }: PropsWithID) => {
+//   const encodedParams = new URLSearchParams({
+//     id,
+//     collection,
+//     previewSecret: process.env.PREVIEW_SECRET || '',
+//   })
 
-  const url = `/next/preview?${encodedParams.toString()}`
+//   const url = `/next/preview?${encodedParams.toString()}`
 
-  return url
-}
+//   return url
+// }

@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 
 import { buildConfig } from 'payload'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { getServerSideURL } from './utilities/getURL'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 //import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
 
@@ -14,6 +15,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { Pages } from './collections/Pages'
+import { plugins } from './plugins'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -47,7 +49,8 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Posts, Pages],
+  collections: [Users, Media, Posts],
+  cors: [getServerSideURL()].filter(Boolean),
   editor: defaultLexical,
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
@@ -66,6 +69,7 @@ export default buildConfig({
   // }),
   sharp,
   plugins: [
+    ...plugins,
     //payloadCloudPlugin(),
     // storage-adapter-placeholder
   ],
