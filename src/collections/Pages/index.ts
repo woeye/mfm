@@ -1,5 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
+import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
+import { slugField } from '@/fields/slug'
+import { generatePreviewPath } from '@/utilities/generatePreviewPath'
+import { getServerSideURL } from '@/utilities/getURL'
+import { MediaBlock } from '@/components/blocks/MediaBlock/config'
+
 import {
   BlocksFeature,
   FixedToolbarFeature,
@@ -16,12 +22,6 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 
-import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
-
-import { slugField } from '@/fields/slug'
-import { generatePreviewPath } from '@/utilities/generatePreviewPath'
-import { getServerSideURL } from '@/utilities/getURL'
-import { MediaBlock } from '@/components/blocks/MediaBlock/config'
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',

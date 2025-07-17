@@ -49,7 +49,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Posts],
+  collections: [Users, Media, Posts, Pages],
   cors: [getServerSideURL()].filter(Boolean),
   editor: defaultLexical,
   secret: process.env.PAYLOAD_SECRET || '',

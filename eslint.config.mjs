@@ -1,22 +1,38 @@
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
 import { FlatCompat } from '@eslint/eslintrc'
 
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
+
 const compat = new FlatCompat({
-  // import.meta.dirname is available after Node.js v20.11.0
-  baseDirectory: import.meta.dirname,
+  baseDirectory: __dirname,
 })
 
 const eslintConfig = [
   ...compat.extends('next/core-web-vitals', 'next/typescript'),
   {
-    files: ['**/*.{ts,tsx}'],
     rules: {
-      'semi': ['error', 'never'],
-      'no-extra-semi': 'error',
-      'quotes': ['error', 'single'],
-       "@typescript-eslint/no-explicit-any": "warn",
-       "@typescript-eslint/no-unused-vars": 'warn',
-    }
-  }
+      '@typescript-eslint/ban-ts-comment': 'warn',
+      '@typescript-eslint/no-empty-object-type': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        {
+          vars: 'all',
+          args: 'after-used',
+          ignoreRestSiblings: false,
+          argsIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^(_|ignore)',
+        },
+      ],
+    },
+  },
+  {
+    ignores: ['.next/'],
+  },
 ]
 
 export default eslintConfig

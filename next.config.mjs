@@ -1,15 +1,11 @@
-import bundleAnalyzer from '@next/bundle-analyzer'
 import { withPayload } from '@payloadcms/next/withPayload'
-import { fileURLToPath } from 'url'
-import path from 'path'
+
+//import { fileURLToPath } from 'url'
+//import path from 'path'
 
 
-const __filename = fileURLToPath(import.meta.url)
-const dirname = path.dirname(__filename)
-
-const withBundleAnalyzer = bundleAnalyzer({
-  enabled: process.env.ANALYZE === 'true',
-})
+//const __filename = fileURLToPath(import.meta.url)
+//const dirname = path.dirname(__filename)
 
 /** @type {import('next').NextConfig} */
 const config = {
@@ -20,12 +16,12 @@ const config = {
       permanent: true,
     }]
   },
-  env: {
-    PAYLOAD_CORE_DEV: 'true',
-    ROOT_DIR: path.resolve(dirname),
-    // @todo remove in 4.0 - will behave like this by default in 4.0
-    PAYLOAD_DO_NOT_SANITIZE_LOCALIZED_PROPERTY: 'true',
-  },
+  // env: {
+  //   PAYLOAD_CORE_DEV: 'true',
+  //   ROOT_DIR: path.resolve(dirname),
+  //   // @todo remove in 4.0 - will behave like this by default in 4.0
+  //   PAYLOAD_DO_NOT_SANITIZE_LOCALIZED_PROPERTY: 'true',
+  // },
   eslint: {
     ignoreDuringBuilds: true,
   },
@@ -55,7 +51,17 @@ const config = {
         as: '*.js',
       }
     }
-  }
+  },
+  // webpack: (webpackConfig) => {
+  //   webpackConfig.resolve.extensionAlias = {
+  //     '.cjs': ['.cts', '.cjs'],
+  //     '.js': ['.ts', '.tsx', '.js', '.jsx'],
+  //     '.mjs': ['.mts', '.mjs'],
+  //   }
+
+  //   return webpackConfig
+  // },
+  reactStrictMode: true,
 }
 
-export default withBundleAnalyzer(withPayload(config))
+export default withPayload(config, { devBundleServerPackages: false })
