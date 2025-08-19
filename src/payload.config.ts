@@ -16,11 +16,28 @@ import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { Pages } from './collections/Pages'
 import { plugins } from './plugins'
+import { migrations } from './migrations'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-export default buildConfig({
+// fall back to mongodb if not specified in the .env file
+const dbAdapter = process.env.DATABASE_ENGINE === 'postgres'
+  ? postgresAdapter({
+    // Postgres-specific arguments go here.
+    // `pool` is required.
+    pool: {
+      connectionString: process.env.DATABASE_URI,
+    },
+    push: false, // disable automatic migrations
+    idType: 'uuid',
+    prodMigrations: migrations,
+  })
+  : mongooseAdapter({
+    url: process.env.DATABASE_URI || '',
+  })
+
+  export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: {
@@ -56,9 +73,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-  db: mongooseAdapter({
-    url: process.env.DATABASE_URI!,
-  }),
+  db: dbAdapter,
   // db: postgresAdapter({
   //   // Postgres-specific arguments go here.
   //   // `pool` is required.

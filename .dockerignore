@@ -1,0 +1,7 @@
+node_modules/
+public/media/
+.next/
+.git/
+.vscode/
+.env
+.aider.*

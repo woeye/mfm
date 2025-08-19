@@ -62,6 +62,7 @@ const config = {
   //   return webpackConfig
   // },
   reactStrictMode: true,
+  output: 'standalone',
 }
 
 export default withPayload(config, { devBundleServerPackages: false })

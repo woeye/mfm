@@ -10,6 +10,8 @@ import { PublishedAt } from '@/components/PublishedAt'
 import { cache } from 'react'
 import { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: 'recent posts',
   description: 'Random musings from munich',
@@ -81,7 +83,6 @@ export default async function PostsPage() {
     </div>
   )
 }
-
 
 const fetchRecentPosts = cache(async function() {
   console.log('fetching recent posts ...')
