@@ -12,7 +12,7 @@ services:
       driver: none
 
   postgres:
-    image: postgres:17
+    image: postgres:18
     ports:
       - '5432:5432'
     volumes:
@@ -25,9 +25,11 @@ services:
     ports:
       - '3000:3000'
     depends_on:
-      - postgres
-    env_file:
-      - .env.docker.local
+      - mongo
+    environment:
+      - DATABASE_URI=mongodb://mongo/mfm-prototype
+      # - DATABASE_ENGINE=postgres
+      - PAYLOAD_SECRET=moo12345
 
   # Uncomment the following to use postgres
   # postgres:
