@@ -1,3 +1,7 @@
+COMMIT		= $(shell git rev-parse HEAD)
+
 docker:
 	docker build \
-    -t mfm-payload:latest .
+    -t mfm-payload:$(COMMIT) \
+    --build-arg GIT_COMMIT=$(COMMIT) \
+    .
