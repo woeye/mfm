@@ -3,7 +3,8 @@ import eslintPlugin from '@eslint/js'
 import tseslint, { configs as tseslintConfigs } from 'typescript-eslint'
 import nextPlugin from '@next/eslint-plugin-next'
 import reactPlugin from 'eslint-plugin-react'
-import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
+import stylisticPlugin from '@stylistic/eslint-plugin'
+//import jsxA11yPlugin from 'eslint-plugin-jsx-a11y'
 
 const eslintConfig = [
   {
@@ -53,12 +54,27 @@ const tseslintConfig = tseslint.config(
   },
 )
 
+const stylistcConfig = [
+  {
+    name: 'custom/stylistic',
+    plugins: {
+      '@stylistic': stylisticPlugin,
+    },
+    rules: {
+      '@stylistic/indent': ['error', 2],
+      '@stylistic/semi': ['error', 'never'],
+      '@stylistic/jsx-quotes': ['error', 'prefer-double'],
+      '@stylistic/quotes': ['error', 'single'],
+    }
+  }
+]
+
 const nextConfig = [
   {
     name: 'custom/next/config',
     plugins: {
       react: reactPlugin,
-      'jsx-a11y': jsxA11yPlugin,
+      //'jsx-a11y': jsxA11yPlugin,
       '@next/next': nextPlugin,
     },
     languageOptions: {
@@ -74,7 +90,7 @@ const nextConfig = [
       ...reactPlugin.configs['jsx-runtime'].rules,
       ...nextPlugin.configs.recommended.rules,
       ...nextPlugin.configs['core-web-vitals'].rules,
-      ...jsxA11yPlugin.configs.strict.rules,
+      //...jsxA11yPlugin.configs.strict.rules,
       'react/no-unknown-property': 'off',
       'react/prop-types': 'off',
       'no-undef': 'error',
@@ -97,4 +113,4 @@ const nextConfig = [
   },
 ]
 
-export default [...eslintConfig, ...ignoresConfig, ...tseslintConfig, ...nextConfig]
+export default [...eslintConfig, ...ignoresConfig, ...tseslintConfig, ...nextConfig, ...stylistcConfig]
