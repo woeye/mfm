@@ -39,39 +39,28 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
   //const doc = useDocumentInfo()
   //const isEditing = doc.isEditing
 
-  const { dispatchFields } = useForm()
+  const { dispatchFields, getDataByPath } = useForm()
 
   // The value of the checkbox
   // We're using separate useFormFields to minimise re-renders
-  const checkboxValue = useFormFields(([fields]) => {
+  const isLocked = useFormFields(([fields]) => {
     return fields[checkboxFieldPath]?.value as string
   })
 
-  // The value of the field we're listening to for the slug
-  const targetFieldValue = useFormFields(([fields]) => {
-    return fields[fieldToUse]?.value as string
-  })
-
-  useEffect(() => {
-    // only auto-update the slug field when creating a new document. when editing a document
-    // the user should update the slug field manually and consciously.
-    // reason is that slugs will be used for URLs. And the URL might already be out in the public.
-    // changing the slug and thus the URL might lead to broken links.
-    // if (isEditing) {
-    //   console.log('!!!!! editing mode detected. do not update slug automatically ...')
-    //   return
-    // }
-
-    if (checkboxValue) {
+  const handleGenerate = useCallback(
+    (e: React.MouseEvent<Element>) => {
+      e.preventDefault()
+      const targetFieldValue = getDataByPath(fieldToUse) as string
       if (targetFieldValue) {
         const formattedSlug = formatSlug(targetFieldValue)
-
         if (value !== formattedSlug) setValue(formattedSlug)
       } else {
         if (value !== '') setValue('')
       }
-    }
-  }, [targetFieldValue, checkboxValue, setValue, value])
+    },
+    [setValue, value, fieldToUse, getDataByPath]
+  )
+
 
   const handleLock = useCallback(
     (e: React.MouseEvent<Element>) => {
@@ -80,20 +69,23 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
       dispatchFields({
         type: 'UPDATE',
         path: checkboxFieldPath,
-        value: !checkboxValue,
+        value: !isLocked,
       })
     },
-    [checkboxValue, checkboxFieldPath, dispatchFields],
+    [isLocked, checkboxFieldPath, dispatchFields],
   )
-
-  const readOnly = readOnlyFromProps || checkboxValue
 
   return (
     <div className="field-type slug-field-component">
       <div className="label-wrapper">
         <FieldLabel htmlFor={`field-${path}`} label={label} />
+        {!isLocked && (
+          <Button className="lock-button" buttonStyle="none" onClick={handleGenerate}>
+            Generate
+          </Button>
+        )}
         <Button className="lock-button" buttonStyle="none" onClick={handleLock}>
-          {checkboxValue ? 'Unlock' : 'Lock'}
+          {isLocked ? 'Unlock' : 'Lock'}
         </Button>
       </div>
 
@@ -101,7 +93,7 @@ export const SlugComponent: React.FC<SlugComponentProps> = ({
         value={value}
         onChange={setValue}
         path={path || field.name}
-        readOnly={Boolean(readOnly)}
+        readOnly={Boolean(readOnlyFromProps || isLocked)}
       />
     </div>
   )

@@ -37,7 +37,7 @@ const dbAdapter = process.env.DATABASE_ENGINE === 'postgres'
     url: process.env.DATABASE_URI || '',
   })
 
-  export default buildConfig({
+export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: {

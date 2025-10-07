@@ -50,7 +50,7 @@ export const Posts: CollectionConfig<'posts'> = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-     url: ({ data, req }) => {
+      url: ({ data, req }) => {
         console.info(`!!!!!!!!!!!!! livePreview slug: ${data.slug}`)
         const path = generatePreviewPath({
           slug: slugFrom(data),
