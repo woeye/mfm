@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+@theme {
+  --color-wenge: #695151;
+  --color-fawn: #E4AD78;
+  --color-rose-gold: #B87474;
+  --color-moonstone-blue: #7DB5C4;
+}
+
 @layer base {
   /* h1, h2, h3, h4, h5 {
     color: var(--color-gray-800);
@@ -27,8 +34,9 @@
 
 @layer base {
   body {
-    background-color: var(--color-gray-50);  /* #f5f5f5; */
-    color: var(--color-gray-600);
+    background-color: var(--color-gray-50);
+    /* #f5f5f5; */
+    color: var(--color-wenge);
   }
 }
 
@@ -43,6 +51,12 @@
 */
 @layer components {
   .article-content {
-    h2 { margin-bottom: --spacing(0.5) }
+    h2 {
+      margin-bottom: --spacing(0.5)
+    }
+
+    p {
+      font-size: var(--text-lg);
+    }
   }
 }
