@@ -1,15 +1,21 @@
 //import { Divider } from '@/icons/divider'
 import Link from 'next/link'
+import { LuAlignJustify } from 'react-icons/lu'
 
 export const TopNavi = () => {
   return (
-    <header className="mt-8">
+    <header className="mt-4">
       <nav className="grid grid-cols-7 md:gap-6 gap-1">
-        <div className="md:col-span-1 col-span-7 text-left md:text-right text-fawn">
+        <div className="md:col-span-1 col-span-6 text-left content-center md:text-right text-fawn">
           <Link href="/" title="Back to home page">
             <span className="font-bold font-serif lg:text-2xl/4 text-xl/2 hidden md:inline">musings<br/>from<br/>munich</span>
             <span className="font-bold font-serif text-xl/6 md:hidden">musings from munich</span>
           </Link>
+        </div>
+        <div className="col-span-1 content-center justify-self-end md:hidden">
+          <button className="hover:bg-neutral-100 p-2">
+            <LuAlignJustify className="text-wenge text-2xl" />
+          </button>
         </div>
         <div className="md:col-span-3 col-span-7 text-left">
           <span className="text-base font-medium text-wenge">random thoughts about photography,<br/>coffee and food</span>
