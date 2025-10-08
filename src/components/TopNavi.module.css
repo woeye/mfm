@@ -1,0 +1,7 @@
+.title {
+  color: var(--mantine-color-wenge-6);
+  font-size: var(--mantine-font-size-xl);
+  font-weight: bold;
+  font-family: var(--font-serif);
+  line-height: 1rem;
+}

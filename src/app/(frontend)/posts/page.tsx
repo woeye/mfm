@@ -42,10 +42,10 @@ export default async function PostsPage() {
           </h2>
         </div>
         <div className="md:col-span-2 col-span-2">
-          <ImageMedia
+          {/* <ImageMedia
             size="wide"
             className="md:h-96 h-64"
-            media={firstPost.featuredPhoto as Media} />
+            media={firstPost.featuredPhoto as Media} /> */}
         </div>
         <div key={firstPost.id} className="col-span-2 md:col-span-1 mt-1">
           <p>{firstPost.abstract}</p>
