@@ -32,16 +32,16 @@ export default async function PostsPage() {
       <h1 className="hidden">recent postings on musings from munich</h1>
 
       {/* treat first post special */}
-      <article className="col-span-7 col-start-1 md:col-span-6 md:col-start-2 gap-6 mt-16 mb-8 grid grid-cols-2 md:grid-cols-3">
+      <article className="col-span-7 col-start-1 md:col-start-2 gap-6 mt-16 mb-8 grid grid-cols-3">
         <div className="col-span-3">
           <PublishedAt post={firstPost} />
-          <h2 className="text-3xl text-wenge">
+          <h2 className="text-xl md:text-2xl text-wenge">
             <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
               {firstPost.title}
             </Link>
           </h2>
         </div>
-        <div className="md:col-span-2 col-span-2">
+        <div className="md:col-span-2 col-span-3">
           <ImageMedia
             size="wide"
             className="md:h-96 h-64"

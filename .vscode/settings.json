@@ -1,0 +1,10 @@
+{
+  "eslint.format.enable": true,
+  "eslint.runtime": "node",
+  "[typescript]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  }
+}

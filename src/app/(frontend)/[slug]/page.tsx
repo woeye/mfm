@@ -1,9 +1,3 @@
-import { cache } from "react"
-import { draftMode } from "next/headers"
-import configPromise from '@payload-config'
-import { getPayload, type RequiredDataFromCollectionSlug } from "payload"
-import { notFound } from "next/navigation"
-import { Content } from "@/components/Content"
 
 type Args = {
   params:Promise<{

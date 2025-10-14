@@ -1,15 +1,12 @@
-import Link from 'next/link'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import { Media, Post } from '@/payload-types'
-import { PublishedAt } from '@/components/PublishedAt'
-import { ImageMedia } from '@/components/ImageMedia'
 import { Content } from '@/components/Content'
-import { cache } from 'react'
-import { draftMode } from 'next/headers'
-import { notFound } from 'next/navigation'
-import { fetchRecentPosts } from '@/utilities/posts'
+import { ImageMedia } from '@/components/ImageMedia'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { PublishedAt } from '@/components/PublishedAt'
+import { Media, Post } from '@/payload-types'
+import configPromise from '@payload-config'
+import { draftMode } from 'next/headers'
+import { getPayload } from 'payload'
+import { cache } from 'react'
 
 //import './divider.css'
 
@@ -35,7 +32,7 @@ export const PostDetails = async ({ post }: { post: Post }) => {
   return (
     <div className="col-span-7 grid grid-cols-7 gap-6 mt-16 mb-8">
       {draft && <LivePreviewListener/>}
-      <article className="col-span-7 col-start-1 md:col-span-5 md:col-start-2">
+      <article className="col-span-7 col-start-1 md:col-span-5 md:col-start-2 article-content">
         <PublishedAt post={post} />
         <h1>{post.title}</h1>
         <ImageMedia
