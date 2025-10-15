@@ -39,7 +39,6 @@ export const Pages: CollectionConfig<'pages'> = {
     slug: true,
     //categories: true,
     meta: {
-      image: true,
       description: true,
     },
   },
@@ -135,13 +134,9 @@ export const Pages: CollectionConfig<'pages'> = {
             OverviewField({
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
-              imagePath: 'meta.image',
             }),
             MetaTitleField({
               hasGenerateFn: true,
-            }),
-            MetaImageField({
-              relationTo: 'media',
             }),
 
             MetaDescriptionField({}),

@@ -15,6 +15,7 @@ import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { Posts } from './collections/Posts'
 import { Pages } from './collections/Pages'
+import { SiteSettings } from './globals/SiteSettings'
 import { plugins } from './plugins'
 import { migrations } from './migrations'
 
@@ -67,6 +68,7 @@ export default buildConfig({
     },
   },
   collections: [Users, Media, Posts, Pages],
+  globals: [SiteSettings],
   cors: [getServerSideURL()].filter(Boolean),
   editor: defaultLexical,
   secret: process.env.PAYLOAD_SECRET || '',
