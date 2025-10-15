@@ -37,6 +37,20 @@ export const TopNavi = () => {
     showOverlay === false && transitionFinished === true ? 'invisible' : '',
   )
 
+  const TopNaviEntries = () => (
+    <>
+      <Link className="text-xl font-bold text-fawn hover:underline" href="/posts">
+        blog
+      </Link>
+      <Link className="text-xl text-wenge hover:underline" href="/contact">
+        contact
+      </Link>
+      <Link className="text-xl text-wenge hover:underline" href="/imprint">
+        imprint
+      </Link>
+    </>
+  )
+
   //const menuDisplay = showMenu ? 'block' : 'hidden'
   return (
     <header className="mt-4">
@@ -61,32 +75,15 @@ export const TopNavi = () => {
           <span className="text-base font-medium text-wenge">random thoughts about photography,<br/>coffee and food</span>
         </div>
         <div className="col-span-3 flex-row gap-6 justify-end hidden md:flex">
-          <Link className="text-xl font-bold text-fawn hover:underline" href="/posts">
-            blog
-          </Link>
-          <Link className="text-xl text-wenge hover:underline" href="/contact">
-            contact
-          </Link>
-          <Link className="text-xl text-wenge hover:underline" href="/imprint">
-            imprint
-          </Link>
+          <TopNaviEntries />
         </div>
       </nav>
 
       <div className={menuCSS} onTransitionEnd={onTransitionEnd}>
         <div className="p-4 flex flex-col gap-3">
-          <Link className="text-xl font-bold text-fawn hover:underline" href="/posts">
-            blog
-          </Link>
-          <Link className="text-xl text-wenge hover:underline" href="/contact">
-            contact
-          </Link>
-          <Link className="text-xl text-wenge hover:underline" href="/imprint">
-            imprint
-          </Link>
+          <TopNaviEntries />
         </div>
       </div>
-
     </header>
   )
 }

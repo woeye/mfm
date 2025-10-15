@@ -57,7 +57,7 @@ export default async function PostsPage() {
         <Divider icon="coffee" />
       </div>
 
-      <div className="col-span-7 col-start-1 md:col-span-6 md:col-start-2 grid grid-cols-3 gap-6 mt-6">
+      <div className="col-span-7 col-start-1 md:col-span-6 md:col-start-2 grid grid-cols-3 gap-x-6 gap-y-12 mt-6">
 
         {/* put remaining posts on a list of tiles */}
         {posts.map((post) => {
@@ -66,14 +66,14 @@ export default async function PostsPage() {
             <article key={post.id} className="col-span-3 md:col-span-1">
               <div className="">
                 <PublishedAt post={firstPost} />
-                <h2>
+                <h2 className="text-xl md:text-base">
                   <Link className="hover:text-black" href={`/posts/${post.slug}`}>
                     {post.title}
                   </Link>
                 </h2>
                 <ImageMedia size="wide" className="h-40 mt-4" media={post.featuredPhoto as Media} />
                 <div className="mt-4">
-                  <p>{post.abstract}</p>
+                  <p className="text-base">{post.abstract}</p>
                 </div>
               </div>
             </article>
