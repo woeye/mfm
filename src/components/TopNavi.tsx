@@ -52,13 +52,8 @@ export const TopNavi = () => {
       <Link onClick={handleMenuClick} className="text-xl font-bold text-fawn hover:underline" href="/posts">
         blog
       </Link>
-<<<<<<< HEAD
       <Link className="text-xl text-wenge hover:underline" href="/privacy">
         privacy
-=======
-      <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/contact">
-        contact
->>>>>>> fede56762ac1ac6df393bdde27fc10afa8a616af
       </Link>
       <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/imprint">
         imprint
