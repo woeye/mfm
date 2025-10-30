@@ -3,10 +3,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { GalleryBlock as GalleryBlockType, Media } from '@/payload-types'
 import createJustifiedLayout, { JustifiedLayoutItem, JustifiedLayoutResult} from 'justified-layout'
-import { cn } from '@/utilities/ui'
 import Image from 'next/image'
-
-//import LightGallery from 'lightgallery/react'
+import LightGallery from 'lightgallery/react'
 
 type GalleryImages = NonNullable<GalleryBlockType['images']>
 type Props = {
@@ -65,30 +63,33 @@ export const GalleryBlock: React.FC<Props> = ({ images }) => {
 
   const innerContainerStyle = { height: `${containerHeight}px` }
   return (
-    <div ref={containerRef} className="grid-cols-4 relative">
+    <div ref={containerRef} className="grid-cols-4 relative my-8">
       {containerLayout && (
         <div className="relative block" style={innerContainerStyle}>
-          {images.map((image, idx) => {
-            const imageMedia = image.media as Media
-            const imageLayout = containerLayout.boxes[idx]
-            if (imageLayout) {
-              const imageStyle: React.CSSProperties = {
-                top: imageLayout.top,
-                left: imageLayout.left,
+          <LightGallery onInit={onInit} speed={500} toggleThumb={true}>
+            {images.map((image, idx) => {
+              const imageMedia = image.media as Media
+              const imageLayout = containerLayout.boxes[idx]
+              if (imageLayout) {
+                const imageStyle: React.CSSProperties = {
+                  top: imageLayout.top,
+                  left: imageLayout.left,
+                }
+                return (
+                  <a key={idx} href={imageMedia.url!}>
+                    <Image
+                      style={imageStyle}
+                      className="absolute inline-block overflow-hidden"
+                      alt={imageMedia.alt}
+                      src={imageMedia.url!}
+                      width={imageLayout.width}
+                      height={imageLayout.height}
+                    />
+                  </a>
+                )
               }
-              return (
-                <Image
-                  key={idx}
-                  style={imageStyle}
-                  className="absolute inline-block overflow-hidden"
-                  alt={imageMedia.alt}
-                  src={imageMedia.url!}
-                  width={imageLayout.width}
-                  height={imageLayout.height}
-                />
-              )
-            }
-          })}
+            })}
+          </LightGallery>
         </div>
       )}
     </div>
