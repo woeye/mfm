@@ -5,19 +5,30 @@ import { cn } from '@/utilities/ui'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { LuAlignJustify, LuX } from 'react-icons/lu'
-import { useMediaQuery } from 'usehooks-ts'
+//import { useMediaQuery } from 'usehooks-ts'
 
 export const TopNavi = () => {
   const [showOverlay, setShowOverlay] = useState(false)
   const [transitionFinished, setTransitionFinished] = useState(true)
   //const overlay = useRef<HTMLDivElement>(null)
-  const matches = useMediaQuery('(min-width: 48rem)')
+  //const matches = useMediaQuery('(min-width: 48rem)')
+
+  // useEffect(() => {
+  //   console.log('matches: ', matches)
+  //   setTransitionFinished(true)
+  //   setShowOverlay(false)
+  // }, [matches])
 
   useEffect(() => {
-    console.log('matches: ', matches)
+    const mql = window.matchMedia('(min-width: 48rem)')
+    mql.addEventListener('change', handleMQLChange)
+  }, [])
+
+  const handleMQLChange = (e: MediaQueryListEvent) => {
+    console.log('MQL change: ', e)
     setTransitionFinished(true)
     setShowOverlay(false)
-  }, [matches])
+  }
 
   const handleClick = () => {
     console.log('handle click -> transitionFinished: ', transitionFinished)
@@ -42,8 +53,8 @@ export const TopNavi = () => {
       <Link className="text-xl font-bold text-fawn hover:underline" href="/posts">
         blog
       </Link>
-      <Link className="text-xl text-wenge hover:underline" href="/contact">
-        contact
+      <Link className="text-xl text-wenge hover:underline" href="/privacy">
+        privacy
       </Link>
       <Link className="text-xl text-wenge hover:underline" href="/imprint">
         imprint
@@ -53,7 +64,7 @@ export const TopNavi = () => {
 
   //const menuDisplay = showMenu ? 'block' : 'hidden'
   return (
-    <header className="mt-4">
+    <header className="mt-4 mb-16">
       <nav className="grid grid-cols-7 md:gap-6 gap-1">
         <div className="md:col-span-1 col-span-6 text-left content-center md:text-right text-fawn">
           <Link href="/" title="Back to home page">

@@ -1,5 +1,6 @@
 @import "tailwindcss";
 /*@import "tw-animate-css";*/
+@import 'lightgallery/css/lightgallery.css';
 
 @theme {
   --color-wenge: #695151;
@@ -50,7 +51,13 @@
     }
 
     h2 {
-      margin-bottom: --spacing(0.5);
+      margin-top: --spacing(8);
+      margin-bottom: --spacing(1);
+      font-size: var(--text-xl);
+
+      @variant md {
+        font-size: var(--text-2xl);
+      }
     }
 
     p {

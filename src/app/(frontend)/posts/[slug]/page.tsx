@@ -4,6 +4,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { PublishedAt } from '@/components/PublishedAt'
 import { Media, Post } from '@/payload-types'
 import configPromise from '@payload-config'
+import { Metadata } from 'next'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
 import { cache } from 'react'
@@ -30,9 +31,9 @@ export const PostDetails = async ({ post }: { post: Post }) => {
   //const recentPosts = await fetchRecentPosts()
 
   return (
-    <div className="col-span-7 grid grid-cols-7 gap-6 mt-16 mb-8">
+    <div className="grid grid-cols-7 gap-6 mb-8">
       {draft && <LivePreviewListener/>}
-      <article className="col-span-7 col-start-1 md:col-span-5 md:col-start-2 article-content">
+      <article className="col-span-7 col-start-1 md:col-span-5 md:col-start-2 article-content ">
         <PublishedAt post={post} />
         <h1>{post.title}</h1>
         <ImageMedia
@@ -64,6 +65,15 @@ export const PostDetails = async ({ post }: { post: Post }) => {
       <div className=""></div>
     </div>
   )
+}
+
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const { slug } = await paramsPromise
+  const post = await queryPostBySlug({ slug })
+  return {
+    title: post.meta?.title,
+    description: post.meta?.description,
+  }
 }
 
 const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {

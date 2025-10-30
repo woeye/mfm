@@ -32,7 +32,7 @@ export default async function PostsPage() {
       <h1 className="hidden">recent postings on musings from munich</h1>
 
       {/* treat first post special */}
-      <article className="col-span-7 col-start-1 md:col-start-2 gap-6 mt-16 mb-8 grid grid-cols-3">
+      <article className="col-span-7 col-start-1 md:col-start-2 gap-6 mb-8 grid grid-cols-3">
         <div className="col-span-3">
           <PublishedAt post={firstPost} />
           <h2 className="text-xl md:text-2xl text-wenge">

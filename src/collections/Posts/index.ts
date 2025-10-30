@@ -22,6 +22,7 @@ import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { MediaBlock } from '@/components/blocks/MediaBlock/config'
 import { revalidatePost } from './hooks/revalidatePost'
+import { GalleryBlock } from '@/components/blocks/GalleryBlock/config'
 
 const slugFrom = (data: Record<string, any>) => {
   return typeof data?.slug === 'string' ? data.slug : ''
@@ -101,7 +102,7 @@ export const Posts: CollectionConfig<'posts'> = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [MediaBlock] }),
+                    BlocksFeature({ blocks: [MediaBlock, GalleryBlock] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                   ]

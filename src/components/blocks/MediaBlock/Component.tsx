@@ -1,5 +1,4 @@
 import { Media } from '@/payload-types'
-import { SerializedUploadNode } from '@payloadcms/richtext-lexical'
 import { ImageMedia } from '@/components/ImageMedia'
 
 type Props = {

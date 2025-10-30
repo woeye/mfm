@@ -5,13 +5,16 @@ import { MediaBlock } from './../blocks/MediaBlock/Component'
 import type {
   Media,
   MediaBlock as MediaBlockProps,
+  GalleryBlock as GalleryBlockProps,
 } from '@/payload-types'
+import { GalleryBlock } from '../blocks/GalleryBlock/Component'
 
 //import './style.scss'
 
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<MediaBlockProps>
+  | SerializedBlockNode<GalleryBlockProps>
 
 const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
   defaultConverters
@@ -22,6 +25,13 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
       const media = node.fields.media as Media
       return <MediaBlock media={media} />
     },
+    galleryBlock: ({ node }) => {
+      const images = node.fields.images
+      if (images) {
+        return <GalleryBlock images={images} />
+      }
+      return <div data-no-gallery-images></div>
+    }
   }
 })
 

@@ -3,12 +3,13 @@ import { cn } from '@/utilities/cn'
 import { serif, sansSerif } from './fonts'
 import { TopNavi } from '@/components/TopNavi'
 import { Footer } from '@/components/Footer'
+import 'lightgallery'
 
 import './app.css'
 
 export const metadata: Metadata = {
   title: {
-    default: 'mfm',
+    default: 'musings from munich',
     template: '%s | musings from munich',
   },
   description: 'Random musings from munich',
