@@ -17,7 +17,7 @@ export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: 
     alt: media.alt,
     src: media.url!,
   }
-  if (size != 'original') {
+  if (size !== 'original') {
     if (!media.sizes) {
       return <div>wrong image size</div>
     }

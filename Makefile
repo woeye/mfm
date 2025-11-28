@@ -1,4 +1,4 @@
-COMMIT		= $(shell git rev-parse --short HEAD)
+COMMIT = $(shell git rev-parse --short HEAD)
 
 # docker:
 # 	docker build \
