@@ -11,8 +11,8 @@ import { withPayload } from '@payloadcms/next/withPayload'
 const config = {
   async redirects() {
     return [{
-      source: "/",
-      destination: "/posts",
+      source: '/',
+      destination: '/posts',
       permanent: true,
     }]
   },
@@ -37,12 +37,14 @@ const config = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
-        port: "8000",
-        pathname: "/media/**",
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '8000',
+        pathname: '/media/**',
       },
     ],
+    // deviceSizes: [640, 1080, 1200],
+    // imageSizes: [380, 640, 1080, 1200],
   },
   turbopack: {
     rules: {

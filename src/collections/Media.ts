@@ -42,10 +42,9 @@ export const Media: CollectionConfig = {
         width: 900,
       },
       {
-        name: 'og',
+        name: 'large',
         width: 1200,
-        height: 630,
-        crop: 'center',
+        withoutEnlargement: true,
       },
     ],
   },
