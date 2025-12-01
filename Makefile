@@ -7,11 +7,18 @@ COMMIT		= $(shell git rev-parse --short HEAD)
 #     --build-arg GIT_COMMIT=$(COMMIT) \
 #     .
 
+# docker:
+# 	docker buildx build --platform linux/amd64 \
+#     -t mfm-payload:$(COMMIT) \
+#     -t registry.musingsfrommunich.art/mfm-payload:$(COMMIT) \
+#     --build-arg GIT_COMMIT=$(COMMIT) \
+#     .
+
 docker:
-	docker buildx build --platform linux/amd64 \
+	docker build \
     -t mfm-payload:$(COMMIT) \
     -t registry.musingsfrommunich.art/mfm-payload:$(COMMIT) \
-    --build-arg GIT_COMMIT=$(COMMIT) \
+  --build-arg GIT_COMMIT=$(COMMIT) \
     .
 
 push:
