@@ -5,9 +5,9 @@ import { PublishedAt } from '@/components/PublishedAt'
 import { Media, Post } from '@/payload-types'
 import configPromise from '@payload-config'
 import { Metadata } from 'next'
+import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { getPayload } from 'payload'
-import { cache } from 'react'
 
 //import './divider.css'
 
@@ -76,22 +76,28 @@ export async function generateMetadata({ params: paramsPromise }: Args): Promise
   }
 }
 
-const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
-  console.log(`fetching post by slug: ${slug}`)
-  const { isEnabled: draft } = await draftMode()
-  const payload = await getPayload({ config: configPromise })
-  const result = await payload.find({
-    collection: 'posts',
-    draft,
-    limit: 1,
-    overrideAccess: draft,
-    pagination: false,
-    where: {
-      slug: {
-        equals: slug,
+const queryPostBySlug = unstable_cache(
+  async ({ slug }: { slug: string }) => {
+    console.log(`fetching post by slug: ${slug}`)
+    const { isEnabled: draft } = await draftMode()
+    const payload = await getPayload({ config: configPromise })
+    const result = await payload.find({
+      collection: 'posts',
+      draft,
+      limit: 1,
+      overrideAccess: draft,
+      pagination: false,
+      where: {
+        slug: {
+          equals: slug,
+        },
       },
-    },
-  })
+    })
 
-  return result.docs?.[0] || null
-})
+    return result.docs?.[0] || null
+  },
+  ['posts'],
+  {
+    revalidate: false,
+  }
+)
