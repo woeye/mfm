@@ -1,9 +1,16 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, ImageUploadFormatOptions } from 'payload'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const webPFormatOptions: ImageUploadFormatOptions = {
+  format: 'webp',
+  options: {
+    quality: 75,
+  }
+}
 
 export const Media: CollectionConfig = {
   slug: 'media',
@@ -27,24 +34,40 @@ export const Media: CollectionConfig = {
       {
         name: 'thumbnail',
         width: 300,
+        formatOptions: webPFormatOptions,
       },
       {
         name: 'wide',
         width: 496,
         height: 288,
+        formatOptions: webPFormatOptions,
+      },
+      {
+        name: 'very_small',
+        width: 384,
+        formatOptions: webPFormatOptions,
       },
       {
         name: 'small',
-        width: 600,
+        width: 640,
+        formatOptions: webPFormatOptions,
       },
       {
         name: 'medium',
-        width: 900,
+        width: 1080,
+        formatOptions: webPFormatOptions,
       },
       {
         name: 'large',
         width: 1200,
         withoutEnlargement: true,
+        formatOptions: webPFormatOptions,
+      },
+      {
+        name: 'xlarge',
+        width: 1920,
+        withoutEnlargement: true,
+        formatOptions: webPFormatOptions,
       },
     ],
   },

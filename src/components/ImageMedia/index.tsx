@@ -15,24 +15,26 @@ export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: 
   //
   // console.log('rendering media: ', media)
 
-  const imageLoader: ImageLoader = ({ src, width }) => {
+  const imageLoader: ImageLoader = ({ width }) => {
     //console.log('src: ', src)
+    console.log('=================================')
     console.log('width: ', width)
     //return ''
 
     if (!media) return ''
 
-    let image = null
-    if (width <= 600) {
-      image = media.sizes!['small']
+    let size = 'large'
+    if (width <= 384) {
+      size = 'very_small'
+    }
+    else if (width <= 640) {
+      size ='small'
     }
     else if (width <= 900) {
-      image = media.sizes!['medium']
-    }
-    else {
-      image = media.sizes!['large']
+      size = 'medium'
     }
 
+    const image = media.sizes![size as SizesKeys]
     console.log('returning url: ', image?.url)
 
     return image?.url || ''
@@ -42,6 +44,7 @@ export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: 
     alt: media?.alt || 'missing alt text',
     src: media?.url || '',
   }
+
   if (size !== 'original') {
     if (!media.sizes) {
       return <div>wrong image size</div>
@@ -68,7 +71,7 @@ export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: 
   return (
     <div className={cn('drop-shadow-md relative', className)}>
       <Image
-        sizes="(max-width: 768px) 100vw, (max-width: 1050px) 60vw, 33vw"
+        sizes="(max-width: 400px) 384px, (max-width: 1050px) 640px, 1080px"
         loader={imageLoader}
         {...opts}
       />
