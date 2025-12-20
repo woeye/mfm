@@ -42,33 +42,6 @@ export const Media: CollectionConfig = {
         height: 288,
         formatOptions: webPFormatOptions,
       },
-      {
-        name: 'very_small',
-        width: 384,
-        formatOptions: webPFormatOptions,
-      },
-      {
-        name: 'small',
-        width: 640,
-        formatOptions: webPFormatOptions,
-      },
-      {
-        name: 'medium',
-        width: 1080,
-        formatOptions: webPFormatOptions,
-      },
-      {
-        name: 'large',
-        width: 1200,
-        withoutEnlargement: true,
-        formatOptions: webPFormatOptions,
-      },
-      {
-        name: 'xlarge',
-        width: 1920,
-        withoutEnlargement: true,
-        formatOptions: webPFormatOptions,
-      },
     ],
   },
 }

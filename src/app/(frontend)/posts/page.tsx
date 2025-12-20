@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default async function PostsPage() {
   //const payload = await getPayload({ config: configPromise })
   const posts = await fetchRecentPosts()
-  console.log('posts: ', posts)
+  //console.log('posts: ', posts)
 
   if (posts.length === 0) return // TODO we might to handle this better
 
@@ -44,7 +44,7 @@ export default async function PostsPage() {
         <div className="md:col-span-2 col-span-3">
           <ImageMedia
             size="wide"
-            className="md:h-96 h-64"
+            // className="md:h-96 h-64"
             media={firstPost.featuredPhoto as Media} />
         </div>
         <div key={firstPost.id} className="col-span-2 md:col-span-1 mt-1">

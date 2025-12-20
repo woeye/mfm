@@ -54,6 +54,16 @@ const config = {
       }
     }
   },
+  // webpack: (config) => {
+  //   // Configure SVG handling for Webpack
+  //   config.module.rules.push({
+  //     test: /\.svg$/i,
+  //     issuer: /\.[jt]sx?$/,
+  //     use: ['@svgr/webpack'],
+  //   })
+
+  //   return config
+  // },
   // webpack: (webpackConfig) => {
   //   webpackConfig.resolve.extensionAlias = {
   //     '.cjs': ['.cts', '.cjs'],

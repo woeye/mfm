@@ -8,37 +8,37 @@ type ImageProps = React.ComponentPropsWithoutRef<typeof Image> // get props of I
 type SizesKeys = keyof NonNullable<Media['sizes']> // get sizes as keys
 type Props = {
   media: Media
-  className?: string
+  //className?: string
   size: SizesKeys | 'original'
 }
-export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: Props) => {
+export const ImageMedia: React.FC<Props> = ({ media, size = 'wide'}: Props) => {
   //
   // console.log('rendering media: ', media)
 
-  const imageLoader: ImageLoader = ({ width }) => {
-    //console.log('src: ', src)
-    console.log('=================================')
-    console.log('width: ', width)
-    //return ''
+  // const imageLoader: ImageLoader = ({ width }) => {
+  //   //console.log('src: ', src)
+  //   console.log('=================================')
+  //   console.log('width: ', width)
+  //   //return ''
 
-    if (!media) return ''
+  //   if (!media) return ''
 
-    let size = 'large'
-    if (width <= 384) {
-      size = 'very_small'
-    }
-    else if (width <= 640) {
-      size ='small'
-    }
-    else if (width <= 900) {
-      size = 'medium'
-    }
+  //   let size = 'large'
+  //   if (width <= 384) {
+  //     size = 'very_small'
+  //   }
+  //   else if (width <= 640) {
+  //     size ='small'
+  //   }
+  //   else if (width <= 900) {
+  //     size = 'medium'
+  //   }
 
-    const image = media.sizes![size as SizesKeys]
-    console.log('returning url: ', image?.url)
+  //   const image = media.sizes![size as SizesKeys]
+  //   console.log('returning url: ', image?.url)
 
-    return image?.url || ''
-  }
+  //   return image?.url || ''
+  // }
 
   let opts: ImageProps = {
     alt: media?.alt || 'missing alt text',
@@ -51,14 +51,18 @@ export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: 
     }
 
     const image = media.sizes[size]
+    console.log(`using image: ${JSON.stringify(image)}`)
     if (!image) {
       return <div>image in requested size not found</div>
     }
     opts = {
       ...opts,
       src: image.url!,
-      fill: true,
-      style: { objectFit: 'contain' },
+      //fill: true,
+      width: image.width || 0,
+      height: image.height || 0,
+      style: { objectFit: 'contain', width: '100%' },
+      //style: { objectFit: 'cover' },
     }
   } else {
     opts = {
@@ -69,10 +73,10 @@ export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: 
   }
 
   return (
-    <div className={cn('drop-shadow-md relative', className)}>
+    <div className={cn('drop-shadow-md relative')}>
       <Image
         sizes="(max-width: 400px) 384px, (max-width: 1050px) 640px, 1080px"
-        loader={imageLoader}
+        //loader={imageLoader}
         {...opts}
       />
     </div>

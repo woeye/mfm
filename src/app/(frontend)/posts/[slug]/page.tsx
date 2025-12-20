@@ -101,3 +101,29 @@ const queryPostBySlug = unstable_cache(
     revalidate: false,
   }
 )
+
+// const queryPostBySlug = unstable_cache(
+//   async ({ slug }: { slug: string }) => {
+//     console.log(`fetching post by slug: ${slug}`)
+//     const { isEnabled: draft } = await draftMode()
+//     const payload = await getPayload({ config: configPromise })
+//     const result = await payload.find({
+//       collection: 'posts',
+//       draft,
+//       limit: 1,
+//       overrideAccess: draft,
+//       pagination: false,
+//       where: {
+//         slug: {
+//           equals: slug,
+//         },
+//       },
+//     })
+
+//     return result.docs?.[0] || null
+//   },
+//   ['posts'],
+//   {
+//     revalidate: false,
+//   }
+// )

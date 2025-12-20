@@ -13,7 +13,7 @@
     "skipLibCheck": true,
     "noEmit": true,
     "incremental": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -34,9 +34,13 @@
       "@/*": [
         "./src/*"
       ],
-      "$/*": ["./*"],
-      "@public/*": ["./public/*"],
-    },
+      "$/*": [
+        "./*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ]
+    }
   },
   "include": [
     "**/*.ts",
@@ -45,6 +49,7 @@
     "next-env.d.ts",
     "next.config.js",
     "types/*.d.ts",
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"
