@@ -259,8 +259,11 @@ export interface Post {
     description?: string | null;
   };
   publishedAt?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -291,8 +294,11 @@ export interface Page {
     title?: string | null;
     description?: string | null;
   };
-  slug?: string | null;
-  slugLock?: boolean | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -557,8 +563,8 @@ export interface PostsSelect<T extends boolean = true> {
         description?: T;
       };
   publishedAt?: T;
+  generateSlug?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -576,8 +582,8 @@ export interface PagesSelect<T extends boolean = true> {
         title?: T;
         description?: T;
       };
+  generateSlug?: T;
   slug?: T;
-  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

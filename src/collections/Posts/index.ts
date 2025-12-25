@@ -1,4 +1,4 @@
-import type { CollectionConfig } from 'payload'
+import { slugField, type CollectionConfig } from 'payload'
 
 import {
   BlocksFeature,
@@ -18,7 +18,6 @@ import {
 
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 
-import { slugField } from '@/fields/slug'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { MediaBlock } from '@/components/blocks/MediaBlock/config'
 import { revalidatePost } from './hooks/revalidatePost'
@@ -226,7 +225,7 @@ export const Posts: CollectionConfig<'posts'> = {
     //     },
     //   ],
     // },
-    ...slugField(),
+    slugField(),
   ],
   hooks: {
     afterChange: [revalidatePost],
