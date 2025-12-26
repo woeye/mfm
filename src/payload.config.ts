@@ -18,6 +18,7 @@ import { Pages } from './collections/Pages'
 import { SiteSettings } from './globals/SiteSettings'
 import { plugins } from './plugins'
 import { migrations } from './migrations'
+import { Categories } from './collections/Categories'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -33,6 +34,7 @@ const dbAdapter = process.env.DATABASE_ENGINE === 'postgres'
     push: false, // disable automatic migrations
     idType: 'uuid',
     prodMigrations: migrations,
+    blocksAsJSON: true,
   })
   : mongooseAdapter({
     url: process.env.DATABASE_URI || '',
@@ -67,7 +69,7 @@ export default buildConfig({
       ],
     },
   },
-  collections: [Users, Media, Posts, Pages],
+  collections: [Users, Media, Posts, Pages, Categories],
   globals: [SiteSettings],
   cors: [getServerSideURL()].filter(Boolean),
   editor: defaultLexical,
