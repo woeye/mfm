@@ -1,0 +1,110 @@
+stages:
+  - docker-build
+#  - deploy
+
+build-docker-image:
+  stage: docker-build
+  only:
+    - /^v\d+.\d+.\d+$/
+    - /^v\d+.\d+.\d+-rc\d+$/
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  script:
+    - mkdir -p /kaniko/.docker
+    - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - cat /kaniko/.docker/config.json
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_SHORT_SHA}"
+
+# update-preview-yaml:
+#   stage: deploy-stage-preview
+#   only:
+#     - main
+#     - experimental
+#   needs: ["build-docker-image"]
+#   image: bitnami/git:2.33.0
+#   before_script:
+#     - git config --global user.email 'lars.hoss@ubimaster.de'
+#     - git config --global user.name 'Lars Hoss'
+#   script:
+#     - git clone https://woeye:${CI_PUSH_TOKEN}@gitlab.com/ubi-master/deployment-scripts.git
+#     - cd deployment-scripts/inbox-service/preview
+#     - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+#     - ./kustomize edit set image registry.gitlab.com/ubi-master/inbox-service=registry.gitlab.com/ubi-master/inbox-service:${CI_COMMIT_SHORT_SHA}
+#     - git commit -am "updated inbox-service for stage TEST"
+#     - git push
+#     - exit 0
+
+# build-docker-int-image:
+#   stage: docker-build-int
+#   only:
+#     - /^v\d+.\d+.\d+-rc\d+$/
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   script:
+#     - mkdir -p /kaniko/.docker
+#     - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+#     - cat /kaniko/.docker/config.json
+#     - >-
+#       /kaniko/executor
+#       --context "${CI_PROJECT_DIR}"
+#       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+#       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+
+# update-int-yaml:
+#   stage: deploy-stage-int
+#   only:
+#     - /^v\d+.\d+.\d+-rc\d+$/
+#   needs: ["build-docker-int-image"]
+#   image: bitnami/git:2.33.0
+#   before_script:
+#     - git config --global user.email 'lars.hoss@ubimaster.de'
+#     - git config --global user.name 'Lars Hoss'
+#   script:
+#     - git clone https://woeye:${CI_PUSH_TOKEN}@gitlab.com/ubi-master/deployment-scripts.git
+#     - cd deployment-scripts/inbox-service/int
+#     - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+#     - ./kustomize edit set image registry.gitlab.com/ubi-master/inbox-service=registry.gitlab.com/ubi-master/inbox-service:${CI_COMMIT_TAG}
+#     - git commit -am "updated inbox-service for stage INT"
+#     - git push
+#     - exit 0
+
+# build-docker-prod-image:
+#   stage: docker-build-prod
+#   only:
+#     - /^v\d+.\d+.\d+$/
+#   image:
+#     name: gcr.io/kaniko-project/executor:debug
+#     entrypoint: [""]
+#   script:
+#     - mkdir -p /kaniko/.docker
+#     - echo "{\"auths\":{\"${CI_REGISTRY}\":{\"auth\":\"$(printf "%s:%s" "${CI_REGISTRY_USER}" "${CI_REGISTRY_PASSWORD}" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+#     - cat /kaniko/.docker/config.json
+#     - >-
+#       /kaniko/executor
+#       --context "${CI_PROJECT_DIR}"
+#       --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+#       --destination "${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}"
+
+# update-prod-yaml:
+#   stage: deploy-stage-prod
+#   only:
+#     - /^v\d+.\d+.\d+$/
+#   needs: ["build-docker-prod-image"]
+#   image: bitnami/git:2.33.0
+#   before_script:
+#     - git config --global user.email 'lars.hoss@ubimaster.de'
+#     - git config --global user.name 'Lars Hoss'
+#   script:
+#     - git clone https://woeye:${CI_PUSH_TOKEN}@gitlab.com/ubi-master/deployment-scripts.git
+#     - cd deployment-scripts/inbox-service/prod
+#     - curl -s "https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh"  | bash
+#     - ./kustomize edit set image registry.gitlab.com/ubi-master/inbox-service=registry.gitlab.com/ubi-master/inbox-service:${CI_COMMIT_TAG}
+#     - git commit -am "updated inbox-service for stage PROD"
+#     - git push
+#     - exit 0
