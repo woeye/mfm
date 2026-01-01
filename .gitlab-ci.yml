@@ -4,6 +4,8 @@ stages:
 
 build-docker-image:
   stage: docker-build
+  tags:
+    - shared
   only:
     - /^v\d+.\d+.\d+$/
     - /^v\d+.\d+.\d+-rc\d+$/
