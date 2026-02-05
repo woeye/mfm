@@ -2,16 +2,16 @@
 
 import { Media } from '@/payload-types'
 import { cn } from '@/utilities/cn'
-import Image, { ImageLoader } from 'next/image'
+import Image from 'next/image'
 
 type ImageProps = React.ComponentPropsWithoutRef<typeof Image> // get props of Image component (which is a weird ForwardRefExoticComponent)
 type SizesKeys = keyof NonNullable<Media['sizes']> // get sizes as keys
 type Props = {
   media: Media
-  //className?: string
+  className?: string
   size: SizesKeys | 'original'
 }
-export const ImageMedia: React.FC<Props> = ({ media, size = 'wide'}: Props) => {
+export const ImageMedia: React.FC<Props> = ({ media, className, size = 'wide'}: Props) => {
   //
   // console.log('rendering media: ', media)
 
@@ -73,7 +73,7 @@ export const ImageMedia: React.FC<Props> = ({ media, size = 'wide'}: Props) => {
   }
 
   return (
-    <div className={cn('drop-shadow-md relative')}>
+    <div className={cn('drop-shadow-md relative', className)}>
       <Image
         sizes="(max-width: 400px) 384px, (max-width: 1050px) 640px, 1080px"
         //loader={imageLoader}

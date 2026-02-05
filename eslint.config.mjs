@@ -19,7 +19,13 @@ const ignoresConfig = [
     name: 'custom/eslint/ignores',
     // the ignores option needs to be in a separate configuration object
     // replaces the .eslintignore file
-    ignores: ['.next/', '.vscode/', 'public/', 'src/migrations/'],
+    ignores: [
+      '.next/',
+      '.vscode/',
+      'public/',
+      'src/migrations/',
+      'src/app/(payload)/',
+    ],
   },
 ]
 

@@ -1,7 +1,7 @@
 import { Content } from '@/components/Content'
 import { draftMode } from 'next/headers'
 import { notFound, redirect } from 'next/navigation'
-import { getPayload, RequiredDataFromCollectionSlug } from 'payload'
+import { getPayload } from 'payload'
 import { cache } from 'react'
 import configPromise from '@payload-config'
 
@@ -20,7 +20,7 @@ type Args = {
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { slug } = await paramsPromise
-  const url = '/' + slug
+  //const url = '/' + slug
 
   if (!slug) {
     redirect('/posts')

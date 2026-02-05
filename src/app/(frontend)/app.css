@@ -10,32 +10,23 @@
 }
 
 @layer base {
-  /* h1, h2, h3, h4, h5 {
-    color: var(--color-gray-800);
-  } */
-
-  /* h1 {
-    font-size: var(--text-4xl);
+  h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
+    font-weight: 800;
+    font-size:5rem;
+    /*font-style: italic;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden; */
   }
-
-  h2 {
-    font-size: var(--text-2xl);
-    font-family: var(--font-serif);
-  }
-
-  h3 {
-    font-size: var(--text-xl);
-    font-family: var(--font-serif);
-  } */
 
   :root {
     --background: var(--color-gray-200);
   }
-}
 
-@layer base {
   body {
+    font-family: var(--font-sans-serif);
     background-color: var(--color-gray-50);
     /* #f5f5f5; */
     color: var(--color-wenge);
@@ -43,15 +34,17 @@
 
   .article-content, article {
     h1 {
+      /* font-family: var(--font-sans-serif); */
       font-size: var(--text-xl);
+      line-height: var(--text-xl--line-height);
 
       @variant md {
-        font-size: var(--text-3xl);
+        font-size: var(--text-5xl);
+        line-height: var(--text-5xl--line-height);
       }
     }
 
     h2 {
-      margin-top: --spacing(8);
       margin-bottom: --spacing(1);
       font-size: var(--text-xl);
 
@@ -66,6 +59,10 @@
       @variant md {
         font-size: var(--text-lg);
       }
+    }
+
+    p+h2 {
+      margin-top: --spacing(8);
     }
   }
 

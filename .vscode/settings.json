@@ -1,10 +1,41 @@
 {
-  "eslint.format.enable": true,
+  "npm.packageManager": "pnpm",
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "eslint.codeActionsOnSave.options": {},
   "eslint.runtime": "node",
-  "[typescript]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+  "eslint.format.enable": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "files.trimTrailingWhitespace": true,
+  "editor.renderWhitespace": "all",
+  "[typescript][javascript][javascriptreact][typescriptreact]": {
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "dbaeumer.vscode-eslint", //"esbenp.prettier-vscode"
   },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "dbaeumer.vscode-eslint"
-  }
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.formatOnSave": true
+  },
+  //"editor.formatOnSaveMode": "file",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "always"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  //"typescript.preferences.quoteStyle": "single",
+  //"typescript.format.semicolons": "remove",
+  "cSpell.words": [
+    "ceconomy",
+    "psql"
+  ],
+  "makefile.configureOnOpen": false,
+  "editor.tabSize": 2,
 }

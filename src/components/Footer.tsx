@@ -6,7 +6,7 @@ export const Footer: React.FC = () => {
       <div className="col-span-7">
         <Divider icon="none" />
         <p className="mt-1 text-wedge text-sm">
-          Created with PayloadCMS, tailwind.css and lots of coffee. &copy; 2025 by Lars Hoss.
+          Created with PayloadCMS, tailwind.css and lots of coffee. &copy; 2026 by Lars Hoss.
         </p>
       </div>
     </div>

@@ -11,6 +11,16 @@ import { getPayload } from 'payload'
 
 //import './divider.css'
 
+
+export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
+  const { slug } = await paramsPromise
+  const post = await queryPostBySlug({ slug })
+  return {
+    title: post.meta?.title,
+    description: post.meta?.description,
+  }
+}
+
 type Args = {
   params: Promise<{
     slug: string,
@@ -65,15 +75,6 @@ export const PostDetails = async ({ post }: { post: Post }) => {
       <div className=""></div>
     </div>
   )
-}
-
-export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
-  const { slug } = await paramsPromise
-  const post = await queryPostBySlug({ slug })
-  return {
-    title: post.meta?.title,
-    description: post.meta?.description,
-  }
 }
 
 const queryPostBySlug = unstable_cache(

@@ -3,7 +3,7 @@ import { getServerSideURL } from '@/utilities/getURL'
 import { Page, Post } from '@/payload-types'
 import { Plugin } from 'payload'
 import { seoPlugin } from '@payloadcms/plugin-seo'
-//import { s3Storage } from '@payloadcms/storage-s3'
+import { s3Storage } from '@payloadcms/storage-s3'
 
 // const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
 //   return doc?.title ? `${doc.title} | musings from munich` : 'musings from munich'
@@ -20,6 +20,15 @@ export const plugins: Plugin[] = [
     //generateTitle,
     generateURL,
   }),
+  // mcpPlugin({
+  //   collections: {
+  //     posts: { enabled: true },
+  //     pages: { enabled: true },
+  //     categories: { enabled: true },
+  //     media: { enabled: true },
+  //   },
+  // }),
+
   // s3Storage({
   //   enabled: true,
   //   collections: {

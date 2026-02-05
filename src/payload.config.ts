@@ -5,7 +5,6 @@ import sharp from 'sharp'
 import { fileURLToPath } from 'url'
 
 import { buildConfig } from 'payload'
-import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { getServerSideURL } from './utilities/getURL'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 //import { payloadCloudPlugin } from '@payloadcms/payload-cloud'
@@ -24,21 +23,17 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 // fall back to mongodb if not specified in the .env file
-const dbAdapter = process.env.DATABASE_ENGINE === 'postgres'
-  ? postgresAdapter({
-    // Postgres-specific arguments go here.
-    // `pool` is required.
-    pool: {
-      connectionString: process.env.DATABASE_URI,
-    },
-    push: false, // disable automatic migrations
-    idType: 'uuid',
-    prodMigrations: migrations,
-    blocksAsJSON: true,
-  })
-  : mongooseAdapter({
-    url: process.env.DATABASE_URI || '',
-  })
+const dbAdapter = postgresAdapter({
+  // Postgres-specific arguments go here.
+  // `pool` is required.
+  pool: {
+    connectionString: process.env.DATABASE_URI,
+  },
+  push: false, // disable automatic migrations
+  idType: 'uuid',
+  prodMigrations: migrations,
+  blocksAsJSON: true,
+})
 
 export default buildConfig({
   admin: {

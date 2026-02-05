@@ -35,7 +35,7 @@ export default async function PostsPage() {
       <article className="col-span-7 col-start-1 md:col-start-2 gap-6 mb-8 grid grid-cols-3">
         <div className="col-span-3">
           <PublishedAt post={firstPost} />
-          <h2 className="text-xl md:text-2xl text-wenge">
+          <h2 className="text-xl md:text-4xl text-wenge">
             <Link className="hover:text-black" href={`/posts/${firstPost.slug}`}>
               {firstPost.title}
             </Link>
@@ -66,7 +66,7 @@ export default async function PostsPage() {
             <article key={post.id} className="col-span-3 md:col-span-1">
               <div className="">
                 <PublishedAt post={firstPost} />
-                <h2 className="text-xl md:text-base">
+                <h2 className="text-xl md:text-2xl">
                   <Link className="hover:text-black" href={`/posts/${post.slug}`}>
                     {post.title}
                   </Link>
