@@ -1,34 +1,20 @@
 'use client'
 
 import { cn } from '@/utilities/ui'
-//import { Divider } from '@/icons/divider'
+import { useMediaQuery } from '@/utilities/hooks/useMediaQuery'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { LuAlignJustify, LuX } from 'react-icons/lu'
-//import { useMediaQuery } from 'usehooks-ts'
 
 export const TopNavi = () => {
   const [showOverlay, setShowOverlay] = useState(false)
   const [transitionFinished, setTransitionFinished] = useState(true)
-  //const overlay = useRef<HTMLDivElement>(null)
-  //const matches = useMediaQuery('(min-width: 48rem)')
-
-  // useEffect(() => {
-  //   console.log('matches: ', matches)
-  //   setTransitionFinished(true)
-  //   setShowOverlay(false)
-  // }, [matches])
+  const isDesktop = useMediaQuery('(min-width: 48rem)')
 
   useEffect(() => {
-    const mql = window.matchMedia('(min-width: 48rem)')
-    mql.addEventListener('change', handleMQLChange)
-  }, [])
-
-  const handleMQLChange = (e: MediaQueryListEvent) => {
-    console.log('MQL change: ', e)
     setTransitionFinished(true)
     setShowOverlay(false)
-  }
+  }, [isDesktop])
 
   const handleClick = () => {
     console.log('handle click -> transitionFinished: ', transitionFinished)
@@ -66,7 +52,6 @@ export const TopNavi = () => {
     setShowOverlay(false)
   }
 
-  //const menuDisplay = showMenu ? 'block' : 'hidden'
   return (
     <header className="mt-4 mb-16">
       <nav className="grid grid-cols-7 md:gap-6 gap-1">

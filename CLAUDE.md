@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-"musings from munich" (mfm) — a blog built on **Payload CMS 3.73** with **Next.js 16** and **PostgreSQL**. The Payload admin manages content; Next.js renders the public frontend.
+"musings from munich" (mfm) — a blog built on **Payload CMS 3.76.1** with **Next.js 16** and **PostgreSQL**. The Payload admin manages content; Next.js renders the public frontend.
 
 ## Commands
 
