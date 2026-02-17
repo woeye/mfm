@@ -27,25 +27,13 @@ export const TopNavi = () => {
     setTransitionFinished(true)
   }
 
-  const menuCSS = cn(
-    'border-t-1 mt-18 absolute top-0 bottom-0 left-0 right-0 z-40 bg-white transition-opacity duration-200',
-    showOverlay ? 'opacity-100 visible' : 'opacity-0',
-    showOverlay === false && transitionFinished === true ? 'invisible' : '',
-  )
-
-  const TopNaviEntries = () => (
-    <>
-      <Link onClick={handleMenuClick} className="text-xl font-bold text-fawn hover:underline" href="/posts">
-        blog
-      </Link>
-      <Link className="text-xl text-wenge hover:underline" href="/privacy">
-        privacy
-      </Link>
-      <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/imprint">
-        imprint
-      </Link>
-    </>
-  )
+  const menuCSS = isDesktop
+    ? 'col-span-3 flex-row gap-6 justify-end hidden md:flex'
+    : cn(
+      'p-4 flex flex-col gap-3 border-t-1 mt-18 absolute top-0 bottom-0 left-0 right-0 z-40 bg-white transition-opacity duration-200',
+      showOverlay ? 'opacity-100 visible' : 'opacity-0',
+      !showOverlay && transitionFinished ? 'invisible' : '',
+    )
 
   const handleMenuClick = () => {
     setTransitionFinished(false)
@@ -63,10 +51,10 @@ export const TopNavi = () => {
         </div>
         <div className="col-span-1 content-center justify-self-end md:hidden">
           <button className="hover:bg-neutral-100 p-2" onClick={handleClick}>
-            {showOverlay === false && (
+            {!showOverlay && (
               <LuAlignJustify className="text-wenge text-2xl" />
             )}
-            {showOverlay === true && (
+            {showOverlay && (
               <LuX className="text-wenge text-2xl" />
             )}
           </button>
@@ -74,16 +62,20 @@ export const TopNavi = () => {
         <div className="md:col-span-3 col-span-7 text-left md:mt-0 mt-2">
           <span className="text-base font-medium text-wenge">random thoughts about photography,<br/>coffee and food</span>
         </div>
-        <div className="col-span-3 flex-row gap-6 justify-end hidden md:flex">
-          <TopNaviEntries />
+
+        {/* Top Navigation menu items */}
+        <div className={menuCSS} onTransitionEnd={onTransitionEnd}>
+          <Link onClick={handleMenuClick} className="text-xl font-bold text-fawn hover:underline" href="/posts">
+            blog
+          </Link>
+          <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/privacy">
+            privacy
+          </Link>
+          <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/imprint">
+            imprint
+          </Link>
         </div>
       </nav>
-
-      <div className={menuCSS} onTransitionEnd={onTransitionEnd}>
-        <div className="p-4 flex flex-col gap-3">
-          <TopNaviEntries />
-        </div>
-      </div>
     </header>
   )
 }
