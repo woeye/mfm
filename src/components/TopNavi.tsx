@@ -27,6 +27,11 @@ export const TopNavi = () => {
     setTransitionFinished(true)
   }
 
+  const handleMenuClick = () => {
+    setTransitionFinished(false)
+    setShowOverlay(false)
+  }
+
   const menuCSS = isDesktop
     ? 'col-span-3 flex-row gap-6 justify-end hidden md:flex'
     : cn(
@@ -34,11 +39,6 @@ export const TopNavi = () => {
       showOverlay ? 'opacity-100 visible' : 'opacity-0',
       !showOverlay && transitionFinished ? 'invisible' : '',
     )
-
-  const handleMenuClick = () => {
-    setTransitionFinished(false)
-    setShowOverlay(false)
-  }
 
   return (
     <header className="mt-4 mb-16">
@@ -59,19 +59,19 @@ export const TopNavi = () => {
             )}
           </button>
         </div>
-        <div className="md:col-span-3 col-span-7 text-left md:mt-0 mt-2">
+        <div className="md:col-span-3 col-span-7 text-left md:mt-0 -mt-2">
           <span className="text-base font-medium text-wenge">random thoughts about photography,<br/>coffee and food</span>
         </div>
 
         {/* Top Navigation menu items */}
         <div className={menuCSS} onTransitionEnd={onTransitionEnd}>
-          <Link onClick={handleMenuClick} className="text-xl font-bold text-fawn hover:underline" href="/posts">
+          <Link onClick={handleMenuClick} className="text-base font-bold text-fawn hover:underline" href="/posts">
             blog
           </Link>
-          <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/privacy">
+          <Link onClick={handleMenuClick} className="text-base text-wenge hover:underline" href="/privacy">
             privacy
           </Link>
-          <Link onClick={handleMenuClick} className="text-xl text-wenge hover:underline" href="/imprint">
+          <Link onClick={handleMenuClick} className="text-base text-wenge hover:underline" href="/imprint">
             imprint
           </Link>
         </div>
