@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "strict": true,
-    "baseUrl": ".",
     "esModuleInterop": true,
-    "target": "ES2022",
+    "target": "es2025",
     "lib": [
       "DOM",
       "DOM.Iterable",
@@ -19,6 +18,9 @@
     "resolveJsonModule": true,
     "sourceMap": true,
     "isolatedModules": true,
+    "types": [
+      "node"
+    ],
     "plugins": [
       {
         "name": "next"

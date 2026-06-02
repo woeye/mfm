@@ -1,16 +1,5 @@
 services:
   # Ensure your DATABASE_URI uses 'mongo' as the hostname ie. mongodb://mongo/my-db-name
-  mongo:
-    image: mongo:8.0.9
-    ports:
-      - '27017:27017'
-    command:
-      - --storageEngine=wiredTiger
-    volumes:
-      - data:/data/db
-    logging:
-      driver: none
-
   postgres:
     image: postgres:18
     ports:
@@ -21,15 +10,20 @@ services:
       - POSTGRES_PASSWORD=postgres
 
   payload:
-    image: mfm-payload:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - '3000:3000'
     depends_on:
-      - mongo
+      - postgres
+    env_file:
+      - .env
     environment:
-      - DATABASE_URI=mongodb://mongo/mfm-prototype
-      # - DATABASE_ENGINE=postgres
-      - PAYLOAD_SECRET=moo12345
+      - DATABASE_URI=postgres://payload:payload@postgres/mfm
+    # volumes:
+    #   - .:/home/node/app
+
 
   # Uncomment the following to use postgres
   # postgres:
